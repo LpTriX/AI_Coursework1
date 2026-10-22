@@ -1,43 +1,43 @@
-# 数独实验记录表
+# Sudoku Experiment Log Template
 
-本表留给学生自己实现后的正式实验，当前尚未填写，不是作业结果。另有 AI 参考实现的 [练习实测记录](../reference/part1b/results/README.md)，不要把两者混用。
+This blank template is for experiments on the student's own implementation. It is not a completed coursework result. The AI reference has separate [practice measurements](../reference/part1b/results/README.md); do not confuse the two.
 
-## 实验条件
+## Experimental conditions
 
-| 项目 | 实际记录 |
+| Item | Actual record |
 | --- | --- |
-| 操作系统与硬件 | 待测 |
-| Python 版本 | 待确认 |
-| 实现版本 / commit | 待实现 |
-| 所选搜索策略 | 待你确定 |
-| 计时是否包含读取和打印 | 待确定 |
-| 重复次数及汇总方式 | 待确定 |
-| 搜索次数定义 | 待确定 |
-| 回溯次数定义 | 待确定 |
-| 正确性验证方式 | 待实现 |
+| Operating system and hardware | Not measured |
+| Python version | To be confirmed |
+| Implementation version / commit | Not implemented |
+| Selected search strategy | To be decided |
+| Whether timing includes reading and printing | To be defined |
+| Repeat count and summary statistic | To be defined |
+| Definition of a search step | To be defined |
+| Definition of a backtrack | To be defined |
+| Correctness verification method | Not implemented |
 
-## 原始测量
+## Raw measurements
 
-按真实运行追加行，保留失败和超时，不只展示成功的输入。
+Append rows from real runs. Retain failures and timeouts rather than reporting only successful inputs.
 
-| 日期 | 题目标识 / 输入文件 | 来源 | 空格数 | commit | 第几次运行 | 用时及单位 | 搜索次数 | 回溯次数 | 结果 | 独立验证 |
+| Date | Puzzle identifier / input file | Source | Empty cells | Commit | Run number | Time and unit | Search steps | Backtracks | Outcome | Independent verification |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-## 功能检查记录
+## Functional checks
 
-| 场景 | 实际输入 | 执行命令 | 观察结果 | 是否符合预期 |
+| Scenario | Actual input | Command | Observed result | Matches expectation? |
 | --- | --- | --- | --- | --- |
-| 普通有解题 | 未运行 | 未运行 | 未运行 | 未知 |
-| 已完成合法题 | 未运行 | 未运行 | 未运行 | 未知 |
-| 几乎完成的题 | 未运行 | 未运行 | 未运行 | 未知 |
-| 格式错误 | 未运行 | 未运行 | 未运行 | 未知 |
-| 初始数字冲突 | 未运行 | 未运行 | 未运行 | 未知 |
-| 初始无冲突但无解 | 未运行 | 未运行 | 未运行 | 未知 |
+| Ordinary solvable puzzle | Not run | Not run | Not run | Unknown |
+| Completed valid puzzle | Not run | Not run | Not run | Unknown |
+| Nearly completed puzzle | Not run | Not run | Not run | Unknown |
+| Malformed input | Not run | Not run | Not run | Unknown |
+| Conflicting givens | Not run | Not run | Not run | Unknown |
+| Initially conflict-free but unsatisfiable | Not run | Not run | Not run | Unknown |
 
-## 解释结果前检查
+## Questions before interpreting results
 
-- 是否保留原始题目和测量数据，能重复运行？
-- 不同题目的计数和计时口径是否一致？
-- 时间差异是否大到超过运行噪声？
-- 结果说明的是这些输入上的表现，还是有证据支持更一般的结论？
-- 讨论其他方法时，是否区分“理论预期”和“本次实际比较”？
+- Are the original inputs and raw measurements retained so the runs can be repeated?
+- Are counter definitions and timing scopes consistent across puzzles?
+- Are observed timing differences larger than execution noise?
+- Do the results describe these inputs, or is there evidence for a more general conclusion?
+- Does the discussion distinguish theoretical expectations from alternatives that were actually tested?

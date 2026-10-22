@@ -1,40 +1,40 @@
-# 分工与时间安排
+# Task Allocation and Schedule
 
-日期均按北京时间。每个人主负责 20 分，实际工作量在第一版完成后再核对。
+All dates use Beijing time (UTC+8). Each member leads work worth 20 marks. Review the actual workload once the first versions are complete.
 
-## 你的任务
+## David Liu
 
-- Part 1B：独立实现数独搜索，支持一种文件格式；检查结果、处理无解；收集多个题目的实测数据；准备 A* 理论分析；撰写对应报告。
-- Part 2C：基于宫成田提供的基础 domain 和 Mission 2 增加宇航员约束，完成 Mission 3；验证约束实际改变可执行动作；撰写对应报告。
-- 数独运行说明、视频素材整合。
+- Part 1B: implement Sudoku search, support at least one required file format, validate results, handle unsatisfiable puzzles, collect measurements on several puzzles, prepare the theoretical A* analysis, and write the corresponding report section independently.
+- Part 2C: extend Gong Chengtian's base domain and Mission 2 with the astronaut requirements, complete Mission 3, verify that the requirements actually constrain action applicability, and write the corresponding report section independently.
+- Prepare the Sudoku run instructions and combine the video recordings.
 
-## 宫成田的任务
+## Gong Chengtian
 
-- Part 1A：数独 CSP 形式化、复杂度分析和对应报告。
-- Part 2A、2B：通用基础 domain、Mission 1/2、规划器验证和对应报告。
-- 报告排版、参考文献整理、最终 ZIP 整理。
+- Part 1A: formulate Sudoku as a CSP, analyse complexity, and write the corresponding report section independently.
+- Parts 2A and 2B: implement a reusable base domain, Mission 1 and Mission 2, validate them with a planner, and write the corresponding report section independently.
+- Format the combined report, organise references, and assemble the final ZIP.
 
-## 共同任务
+## Shared responsibilities
 
-- 开始时确定 PDDL 接口，交接时记录实际 commit。
-- 各自说明自己代码的正确性依据，互相检查对方结果。
-- 每人讲解视频的实质部分；总时长不超过 8 分钟。
-- 提交前共同检查最终文件和视频链接。
-- 初版完成后重新比较剩余工作量，必要时转移实验整理、图表或打包任务。
+- Agree on the PDDL interface at the start and record the actual commit used for the handoff.
+- Explain the correctness of each implementation and review the other member's results.
+- Each member presents a substantial portion of the video; the total must not exceed 8 minutes.
+- Check the final files and video link together before submission.
+- Compare the remaining workload after the first versions are ready. Reassign measurement organisation, figures, or packaging if needed.
 
-## 建议进度
+## Suggested schedule
 
-| 日期 | 你 | 宫成田 | 阶段检查 |
+| Date | David Liu | Gong Chengtian | Milestone check |
 | --- | --- | --- | --- |
-| 10-22 至 10-23 | 明确输入与求解流程，开始数独 | 确定基础 PDDL 接口并开始实现 | 接口由双方确认；学习笔记已记录 |
-| 10-24 至 10-25 | 完成数独第一版；拿到基础 domain 后开始 Part 2C | 提供可运行的基础 domain 与 Mission 2，继续 Mission 1 和 Part 1A | 实际运行后才标记完成 |
-| 10-26 | 数独实验与 Mission 3 验证 | 基础规划模型复查和补充测试 | 对照规则互查，平衡剩余工作 |
-| 10-27 | 自行撰写负责部分 | 自行撰写负责部分 | Part 1 合计最多 4 页；Part 2 合计最多 3 页 |
-| 10-28 | 录制与整合视频 | 排版与整理 ZIP | 双方一起完成提交检查，争取提前提交 |
-| 10-29 | 修正与提交缓冲 | 修正与提交缓冲 | 核对 OUC 的实际截止时间 |
+| Oct 22–23 | Define input and search behaviour; start Sudoku | Agree on the base PDDL interface and begin implementation | Both confirm the interface; learning notes are recorded |
+| Oct 24–25 | Complete the first Sudoku version; start Part 2C after receiving the base domain | Provide a working base domain and Mission 2; continue Mission 1 and Part 1A | Mark work complete only after actually running it |
+| Oct 26 | Run Sudoku experiments and validate Mission 3 | Review the base planning model and add checks | Review against the specification and balance the remaining work |
+| Oct 27 | Independently write assigned report sections | Independently write assigned report sections | Part 1: at most 4 pages total; Part 2: at most 3 pages total |
+| Oct 28 | Record and combine the video | Format the report and assemble the ZIP | Check the submission together and aim to submit early |
+| Oct 29 | Allow time for corrections and submission | Allow time for corrections and submission | Confirm the actual OUC deadline time |
 
-## 文件所有权与协作
+## File ownership and collaboration
 
-宫成田主维护基础 domain、Mission 1、Mission 2。你主维护扩展 domain、Mission 3；不要在扩展时悄悄改动基础文件。基础版本变更后重新核对扩展。
+Gong Chengtian maintains the base domain, Mission 1, and Mission 2. David Liu maintains the extended domain and Mission 3. Changes needed in the base files should be coordinated rather than introduced silently. Recheck the extension whenever the base version changes.
 
-原始 PDDL 文件名、目录以及 domain/problem 名称必须按 starter 保留。最终只提交题目要求的五个 PDDL 文件。
+Preserve the starter filenames, folder structure, and domain/problem names. The final submission must contain exactly the five required PDDL files.

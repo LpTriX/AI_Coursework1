@@ -1,69 +1,77 @@
-# 进度日志
+# Progress Log
 
-这是工作记录，不是报告正文。每次记录应写明做了什么、如何验证、还有什么未完成。
+This is a work log, not report text. Each entry records what changed, how it was checked, and what remains unfinished. Earlier entries describe the state at their respective milestones.
 
-## 2026-10-22 — 阶段 1：建立协作与版本记录
+## 2026-10-22 — Stage 1: Collaboration and version tracking
 
-- 已读取完整题目及 starter 文件列表，确认你的责任是 Part 1B 和 Part 2C。
-- 已检查 GitHub 仓库，初始内容只有 README；已建立本地工作副本。
-- 已记录两人分工、交接依赖、建议日程和版本记录规则。
-- 当前状态：数独代码、基础 PDDL、扩展 PDDL、性能实验和报告均未完成。
-- 编程语言：你已确认 Python。
-- 验证：仓库准备阶段只检查文档、链接和版本状态，没有运行或声称通过作业测试。
+- Read the full specification and starter file list; confirmed that David Liu owns Parts 1B and 2C.
+- Inspected the GitHub repository, which initially contained only a README, and created a local working copy.
+- Recorded the task allocation, handoff dependencies, suggested schedule, and version-recording rules.
+- Status at this stage: Sudoku code, base PDDL, extended PDDL, measurements, and report were unfinished.
+- Selected language: Python, confirmed by David Liu.
+- Validation: checked documentation, links, and version state only. No coursework tests were run or claimed to pass.
 
-## 2026-10-22 — 阶段 2：准备 Part 1B 学习与实验路线
+## 2026-10-22 — Stage 2: Part 1B learning and experiment roadmap
 
-- 已确认使用 Python，整理读取与验证、候选值、回溯、可选 MRV、功能检查、实验与 A* 理论分析的学习顺序。
-- 已建立实验条件、原始测量和功能检查空表；没有预填测量数字。
-- 首个学生实现里程碑：读取 TXT 棋盘、验证输入并清楚打印，保留有效和无效输入的真实运行记录。
-- 当前状态：路线与记录表已准备；代码与实验仍未完成。
-- 验证：核对学习清单对应题目 Part 1B，A* 仅要求理论分析；尚无可运行作业代码。
+- Organised the Python learning sequence: reading and validation, candidates, backtracking, optional MRV, functional checks, experiments, and theoretical A* analysis.
+- Created blank templates for experimental conditions, raw measurements, and functional checks without fabricated values.
+- Defined the first student implementation milestone: read a TXT board, validate it, print it clearly, and retain actual valid/invalid input runs.
+- Status at this stage: roadmap and templates prepared; code and experiments unfinished.
+- Validation: checked the roadmap against Part 1B. A* requires theoretical analysis only; no runnable coursework implementation existed yet.
 
-## 后续阶段记录格式
+## 2026-10-22 — Stage 3: Part 2C handoff and validation roadmap
 
-每一阶段追加：日期、负责人与目标、实际改动、运行命令与结果、未解决问题、下一步。关联代码时写真实 commit 标识；不要补造实现步骤或测试结果。
+- Recorded the base files, predicate/action interface, landing-site choice, planner information, and version evidence needed from Gong Chengtian.
+- Checked the five PDDL filenames and domain/problem names against the original starter package.
+- Prepared astronaut applicability checks and counterexample scenarios, all marked as not run.
+- Dependency: Gong Chengtian's implemented base model had not been received. This did not prevent work on the first Python Sudoku step.
+- Status at this stage: preparation and learning roadmaps complete; student implementation, measurements, and report unfinished.
+- Next step at this stage: independently implement Python reading, validation, and display before reviewing search.
 
-## 2026-10-22 — 阶段 3：准备 Part 2C 交接与验证路线
+## 2026-10-22 — Stage 4: Python input-layer learning reference
 
-- 已记录与宫成田对接所需的基础文件、谓词/动作接口、着陆点选择、规划器和版本证据。
-- 已与原始 starter 核对五个 PDDL 文件及其 domain/problem 名称。
-- 已整理宇航员扩展的条件检查和反例测试场景，全部保持“未运行”。
-- 依赖：尚未收到宫成田实现的基础模型；该依赖不影响先完成 Python 数独第一步。
-- 当前状态：项目准备和学习路线已完成；学生实现、实测和报告未完成。
-- 下一步：你自行完成 Python 输入读取、验证和打印，提交代码与实际运行结果后继续检查搜索实现。
+- Following David Liu's further request, began a clearly labelled AI-generated learning reference in `reference/part1b/`.
+- Added standard-library TXT/CSV reading, format/range/conflict checks, and readable board display.
+- Added three practice inputs without claiming certified provenance, uniqueness, or difficulty.
+- Actual validation: `python3 -m unittest reference.part1b.test_solver -v`; 7 tests passed.
+- Status at this stage: input reference available; search, CLI, and measurements unfinished; Part 2C awaiting the base-model handoff.
+- The reference is not student-authored submission code; see the course AI-use requirements in the README.
 
-## 2026-10-22 — 阶段 4：Python 输入层学习参考
+## 2026-10-22 — Stage 5: MRV backtracking, CLI, and semantic checks
 
-- 应你的进一步请求，开始制作明确标注 AI 来源的学习参考，独立放在 `reference/part1b/`。
-- 已支持 TXT/CSV 读取、格式/范围/冲突检查和可读棋盘打印，使用标准库。
-- 已加入三个练习输入，未声称其来源认证、唯一性或正式难度。
-- 实际验证：`python3 -m unittest reference.part1b.test_solver -v`，7 个测试通过。
-- 当前状态：输入层参考可用；搜索、CLI、性能实测仍未完成；Part 2C 仍等待基础模型交接。
-- 参考实现不是学生自行编写的提交代码；课程 AI 使用要求见 README。
+- Added backtracking implemented without a solver library, MRV cell selection, recomputed candidate sets, dead-end checks, rollback, a CLI, and statistics.
+- The first test run found that the local `python3` was Python 3.9 and lacked `int.bit_count()`. Replaced it with compatible bit counting and updated the minimum-version guidance.
+- After the fix, ran `python3 -m unittest reference.part1b.test_solver -v`; all 17 tests passed.
+- Coverage included unsatisfiability, completed boards, a single blank, an empty board, independent repeated calls, input preservation, digit relabelling, transposition, and CLI exit codes.
+- Checked returned completions independently against row, column, box, and given-digit requirements.
+- Ran the branching practice input: found a valid completion with 10102 search calls, 10101 assignment attempts, and 10041 failed assignments undone. Repeated timing evidence was saved later.
+- Status at this stage: runnable Sudoku reference; repeated measurements not yet saved; Part 2C awaiting the base model.
 
-## 2026-10-22 — 阶段 5：MRV 回溯、命令行和语义测试
+## 2026-10-22 — Stage 6: Traceable measurement tools and A* exercise
 
-- 已加入自行实现的回溯搜索、MRV 选格、候选值重新计算与死路检查、失败撤销、命令行与统计信息，未调用求解器库。
-- 第一轮测试发现本机 `python3` 是 Python 3.9，不支持 `int.bit_count()`；已改用兼容的位计数并更新最低版本说明。
-- 修正后实际运行 `python3 -m unittest reference.part1b.test_solver -v`，17 个测试全部通过。
-- 测试涵盖无解、完整棋盘、单空格、空棋盘、多次独立求解、输入不被修改、数字重标记与转置，以及命令行退出码。
-- 使用独立于搜索的行/列/宫/给定数字检查验证输出。
-- 已运行 branching 练习输入：找到合法解，10102 次搜索调用、10101 次赋值尝试、10041 次失败撤销；时间以之后保存的重复实测为准。
-- 当前状态：数独参考可运行；重复性能测量尚未保存，Part 2C 仍等待基础模型。
+- Added a standard-library benchmark that records each run, repetitions, environment, code commit, code/input hashes, and timing scope.
+- Each returned completion is checked independently using sets. A no-solution result from the current search is not presented as a proof from a second method.
+- Added an A* understanding exercise covering states, actions, costs, and heuristics. It derives constant f values for the empty-cell heuristic when each unit-cost action fills one cell.
+- Actual validation: `python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark -v`; 21 tests passed.
+- Next step at this stage: measure the three practice inputs five times each on committed code and save raw JSON. The inputs are not a certified difficulty dataset.
 
-## 2026-10-22 — 阶段 6：建立可追溯的测量工具与 A* 练习
+## 2026-10-22 — Stage 7: Actual reference measurements
 
-- 已加入标准库性能测量工具：保存每次运行、重复次数、环境、代码 commit、代码/输入哈希以及计时范围。
-- 每个返回解会通过独立的集合检查；没有把当前搜索给出的“无解”记录冒充第二种方法的证明。
-- 已加入 A* 状态/动作/代价/启发函数的理解练习，说明在“每步填一格且代价为 1”的模型下，空格数启发式会使 f 保持常数。
-- 实际验证：`python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark -v`，21 个测试通过。
-- 下一步：在已提交的代码版本上进行三题各 5 次测量，保存原始 JSON；这些练习题不是正式难度认证数据集。
+- Ran `python3 -m reference.part1b.benchmark --repeats 5` on committed version `a431cc1eddeea8f7a47bc8a792a31e1d3b8428a0`.
+- Saved all 15 runs across three inputs, including counters, timings, environment, and hashes, to `reference/part1b/results/benchmark.json`, with a summary.
+- Verified five records per input, consistent counters across repetitions, independent validation of every returned completion, and no uncommitted measured code or input changes.
+- Median times: branching 85.508 ms, standard 0.342 ms, and the immediately contradictory unsatisfiable input 0.016 ms. These measurements describe this machine and this run only.
+- Left the student's formal experiment template blank to avoid confusing reference results with measurements of student-authored code.
+- Status at this stage: the Part 1B learning reference, tests, measurement tools, and A* exercise were available. Student-authored implementation/report, GUI, and Part 2C remained unfinished. Part 2C depends on Gong Chengtian's base domain and Mission 2.
 
-## 2026-10-22 — 阶段 7：保存参考实现的实际测量
+## 2026-10-22 — Stage 8: English-language repository
 
-- 在已提交的版本 `a431cc1eddeea8f7a47bc8a792a31e1d3b8428a0` 上执行 `python3 -m reference.part1b.benchmark --repeats 5`。
-- 三个练习输入共运行 15 次，原始统计、计时、环境与哈希已保存至 `reference/part1b/results/benchmark.json`，并附结果摘要。
-- 逐项核对：每题有五次记录、同题搜索计数一致，所有找到的解都通过独立验证；被测代码与输入无未提交改动。
-- 练习中位耗时：branching 85.508 ms，standard 0.342 ms，立即矛盾的无解输入 0.016 ms；这些数据只描述本机本次运行。
-- 已保留学生正式实验表为空，避免把 AI 参考结果误作学生自己实现的实验。
-- 当前状态：Part 1B 学习参考的求解、测试、实验工具和 A* 理解练习可用；正式学生实现/报告、GUI 和 Part 2C 尚未完成。Part 2C 依赖宫成田的基础 domain 与 Mission 2。
+- Applied the requirement that coursework and GitHub repository content use English.
+- Translated the root README, collaboration documents, learning notes, experiment template, reference run instructions, measurement summary, historical progress entries, and ignore-file comments.
+- Used the English names David Liu and Gong Chengtian consistently in the collaboration documents.
+- Code comments, program output, filenames, and raw measurement records were already in English. Executable code, practice inputs, and measurement values were not edited.
+- Validation: scanned tracked text for remaining Chinese characters, checked relative Markdown links and whitespace, and compared executable code, inputs, and raw measurements with their preceding versions. No new solver tests or performance measurements were needed for this documentation-only change.
+
+## Format for future entries
+
+Record the date, owner and objective, actual changes, commands and results, remaining issues, and next step. Use real commit identifiers when referring to code; do not invent implementation history or test outcomes. Write future entries in English.
