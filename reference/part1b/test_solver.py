@@ -1,13 +1,32 @@
 """Semantic checks for Sudoku solving."""
 
 import tempfile
+import subprocess
+import sys
 import unittest
 from pathlib import Path
 
-from reference.part1b.solver import PuzzleError, format_board, parse_puzzle, read_puzzle, validate_board
+from reference.part1b.solver import PuzzleError, format_board, parse_puzzle, read_puzzle, solve, validate_board
 
 PUZZLES = Path(__file__).with_name("puzzles")
 SOLVED = tuple(tuple((r * 3 + r // 3 + c) % 9 + 1 for c in range(9)) for r in range(9))
+
+
+def assert_valid_completion(testcase, original, solution):
+    """Independent oracle: check all units and givens without solver helpers."""
+    testcase.assertIsNotNone(solution)
+    digits = set(range(1, 10))
+    testcase.assertEqual(len(solution), 9)
+    for r in range(9):
+        testcase.assertEqual(set(solution[r]), digits)
+        testcase.assertEqual({solution[c][r] for c in range(9)}, digits)
+        for c in range(9):
+            if original[r][c]:
+                testcase.assertEqual(solution[r][c], original[r][c])
+    for br in (0, 3, 6):
+        for bc in (0, 3, 6):
+            testcase.assertEqual({solution[r][c] for r in range(br, br + 3)
+                                 for c in range(bc, bc + 3)}, digits)
 
 
 class InputTests(unittest.TestCase):
@@ -63,6 +82,96 @@ class InputTests(unittest.TestCase):
         rendered = format_board(grid)
         self.assertEqual(rendered.count("."), 81)
         self.assertEqual(grid, [[0] * 9 for _ in range(9)])
+
+
+class SearchTests(unittest.TestCase):
+    def test_solved_board_and_single_blank(self):
+        completed = solve(SOLVED)
+        self.assertEqual(completed.solution, SOLVED)
+        self.assertEqual(completed.stats.assignments, 0)
+        self.assertEqual(completed.stats.nodes, 1)
+        for r, c in [(0, 0), (4, 4), (8, 8)]:
+            grid = [list(row) for row in SOLVED]
+            grid[r][c] = 0
+            with self.subTest(cell=(r, c)):
+                result = solve(grid)
+                self.assertEqual(result.solution, SOLVED)
+
+    def test_examples_preserve_givens_and_caller_input(self):
+        for name in ["standard.txt", "branching.txt"]:
+            grid = [list(row) for row in read_puzzle(PUZZLES / name)]
+            original = [row[:] for row in grid]
+            with self.subTest(name=name):
+                result = solve(grid)
+                assert_valid_completion(self, original, result.solution)
+                self.assertEqual(grid, original)
+                self.assertEqual(result.stats.assignments - result.stats.backtracks,
+                                 sum(value == 0 for row in grid for value in row))
+                if name == "branching.txt":
+                    self.assertGreater(result.stats.backtracks, 0)
+
+    def test_unconstrained_board_is_supported_without_uniqueness_claim(self):
+        empty = ((0,) * 9,) * 9
+        assert_valid_completion(self, empty, solve(empty).solution)
+
+    def test_no_solution_without_duplicate_given_digits(self):
+        puzzle = read_puzzle(PUZZLES / "unsatisfiable.txt")
+        self.assertIsNone(solve(puzzle).solution)
+
+    def test_conflicting_board_rejected_before_search(self):
+        grid = [[0] * 9 for _ in range(9)]
+        grid[0][0] = grid[1][1] = 7
+        with self.assertRaises(PuzzleError):
+            solve(grid)
+
+    def test_repeated_calls_are_independent_and_deterministic(self):
+        puzzle = read_puzzle(PUZZLES / "branching.txt")
+        first = solve(puzzle)
+        solve(read_puzzle(PUZZLES / "unsatisfiable.txt"))
+        second = solve(puzzle)
+        self.assertEqual(first.solution, second.solution)
+        self.assertEqual(first.stats.nodes, second.stats.nodes)
+        self.assertEqual(first.stats.backtracks, second.stats.backtracks)
+
+    def test_digit_relabeling_and_transposition(self):
+        original = read_puzzle(PUZZLES / "standard.txt")
+        variants = [tuple(tuple(original[c][r] for c in range(9)) for r in range(9)),
+                    tuple(tuple(10 - value if value else 0 for value in row) for row in original)]
+        for grid in variants:
+            assert_valid_completion(self, grid, solve(grid).solution)
+
+
+class CommandTests(unittest.TestCase):
+    def run_cli(self, *args):
+        return subprocess.run([sys.executable, "-m", "reference.part1b.solver", *map(str, args)],
+                              capture_output=True, text=True, timeout=15,
+                              cwd=Path(__file__).resolve().parents[2])
+
+    def test_solution_stats_and_no_solution_exit_codes(self):
+        solved = self.run_cli(PUZZLES / "standard.txt", "--stats")
+        self.assertEqual(solved.returncode, 0, solved.stderr)
+        self.assertIn("Solution", solved.stdout)
+        self.assertIn('"backtracks"', solved.stdout)
+        unsolvable = self.run_cli(PUZZLES / "unsatisfiable.txt")
+        self.assertEqual(unsolvable.returncode, 1)
+        self.assertIn("No solution", unsolvable.stdout)
+
+    def test_missing_invalid_and_non_utf8_files(self):
+        missing = self.run_cli(PUZZLES / "does-not-exist.txt")
+        self.assertEqual(missing.returncode, 2)
+        self.assertIn("Input error", missing.stderr)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "bad.txt"
+            for data in [b"1 2 3", b"\xff\xfe"]:
+                path.write_bytes(data)
+                error = self.run_cli(path)
+                self.assertEqual(error.returncode, 2)
+                self.assertIn("Input error", error.stderr)
+
+    def test_direct_script_entrypoint(self):
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("solver.py")),
+                                 str(PUZZLES / "standard.txt")], capture_output=True, text=True, timeout=15)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":
