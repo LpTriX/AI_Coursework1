@@ -19,7 +19,7 @@ python3 -m reference.part1b.solver reference/part1b/puzzles/branching.txt --stat
 在仓库根目录运行：
 
 ```sh
-python3 -m unittest reference.part1b.test_solver -v
+python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark -v
 ```
 
 ## 如何追踪代码
@@ -58,3 +58,21 @@ MRV 并列时按行优先选择，数字按从小到大尝试。相同输入的�
 `unsatisfiable.txt` 是从规则生成的完整棋盘改造的反例：初始给定数字无直接重复，但不存在完整解。程序必须通过搜索/候选值检查判定无解，不能将其误归类为格式错误。
 
 正式实验应使用你自行收集、可追溯来源的多个题目，并保存真实测量。
+
+## 重复测量
+
+在仓库根目录运行：
+
+```sh
+python3 -m reference.part1b.benchmark --repeats 5
+```
+
+可在 `--repeats` 前指定一个或多个 TXT/CSV 输入路径，默认使用本目录的三个练习题。
+
+默认覆盖 `results/benchmark.json`；需要保留多次实验时用 `--output` 指定不同文件。原始记录包括各次统计和计时、输入/代码 SHA-256、代码 commit、代码是否未提交，以及环境信息。计时不包括验证解的过程；每个返回的解会另外使用集合检查验证行、列、宫和原始数字。
+
+“无解”记录来自当前算法，没有调用第二个求解器做独立证明。自带无解反例的第一行缺 1，但第一列已有 1，因此第一格无合法值，可以手工核验。
+
+## A* 理解练习
+
+见 [A* 推导与自检问题](../../learning/A_STAR_WALKTHROUGH.md)。学习笔记不替代你自己的报告，也不包含尚未进行的算法比较结论。
