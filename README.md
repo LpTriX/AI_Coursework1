@@ -1,31 +1,32 @@
-# F29AI Coursework 1 — 小组工作记录
+# F29AI Coursework 1 — Group Work Log
 
-本仓库记录任务安排、实现进度和验证证据，并包含数独参考实现。
+This repository records task allocation, implementation progress, and validation evidence for the Sudoku solver and lunar planning tasks.
 
-## 从这里开始
+Repository documentation, code comments, program output, and future coursework materials should be written in English.
 
-- [Python 数独学习参考](reference/part1b/README.md)
-- [A* 理解练习](learning/A_STAR_WALKTHROUGH.md)
-- [分工与时间安排](docs/WORK_SPLIT.md)
-- [进度日志](docs/PROGRESS.md)
-- [你的 Part 1B 路线与第一步](learning/PART1B.md)
-- [数独实验记录表](learning/EXPERIMENTS.md)
-- [Part 2C 交接与学习路线](learning/PART2C.md)
-- [与宫成田对接的清单](docs/PDDL_HANDOFF.md)
+## Start here
 
-## 已约定的分工
+- [Python Sudoku learning reference](reference/part1b/README.md)
+- [A* understanding exercise](learning/A_STAR_WALKTHROUGH.md)
+- [Task allocation and schedule](docs/WORK_SPLIT.md)
+- [Progress log](docs/PROGRESS.md)
+- [Part 1B learning and implementation roadmap](learning/PART1B.md)
+- [Sudoku experiment log template](learning/EXPERIMENTS.md)
+- [Part 2C learning and validation roadmap](learning/PART2C.md)
+- [PDDL handoff checklist](docs/PDDL_HANDOFF.md)
 
-| 负责人 | 内容 | 分值 |
+## Agreed task allocation
+
+| Owner | Responsibility | Marks |
 | --- | --- | ---: |
-| 你 | Part 1B：数独实现、定量评价、A* 理论分析 | 15 |
-| 你 | Part 2C：宇航员扩展与 Mission 3 | 5 |
-| 宫成田 | Part 1A：CSP 与复杂度分析 | 5 |
-| 宫成田 | Part 2A、2B：基础 domain、Mission 1、Mission 2 | 15 |
-| 双方 | 整体呈现、互查、视频与最终提交 | 5 |
+| Pinxin Liu | Part 1B: Sudoku implementation, quantitative evaluation, and theoretical A* analysis | 15 |
+| Pinxin Liu | Part 2C: astronaut extension and Mission 3 | 5 |
+| Chengtian Gong | Part 1A: CSP formulation and complexity analysis | 5 |
+| Chengtian Gong | Parts 2A and 2B: base domain, Mission 1, and Mission 2 | 15 |
+| Both | Overall presentation, peer review, video, and final submission | 5 |
 
-## 使用与版本记录
+## Use and version history
 
+After each real milestone, record the changes, validation, and remaining issues, then create a Git commit and publish it to GitHub. Record failures, unfinished work, and checks that have not been run accurately. Experiment logs must contain actual measurements.
 
-每完成一个真实阶段，先记录改动、验证和剩余问题，再提交一个 Git commit 并推送到 GitHub。失败、未完成和未运行的内容应如实记录，实验表只能填写实际测量。
-
-截止日期为 2026-10-29，具体提交时间以 OUC 的 Canvas 提交页面为准。仓库中的步骤清单不替代完整题目。
+The deadline date is 2026-10-29. Check the OUC Canvas submission page for the exact submission time. These checklists do not replace the full specification.

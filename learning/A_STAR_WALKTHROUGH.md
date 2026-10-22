@@ -1,26 +1,27 @@
-# A* 理解练习：从定义检查启发函数
+# A* Understanding Exercise: Check the Heuristic Against the Model
 
+This note explains Sudoku as an A* search problem and relates the heuristic to the implemented solver.
 
-## 先固定一个模型，再讨论 h
+## Fix the model before discussing h
 
-考虑以下用于推导的选择：状态是保留原始给定数字的合法部分棋盘；动作是给一个空格填入当前不违反行、列、宫约束的数字；每个动作代价为 1。设初始有 m 个空格。
+Consider a model in which a state is a legal partial board preserving the original givens. An action fills one empty cell with a digit that does not violate the current row, column, or box constraints. Every action costs 1. Let the initial board contain m empty cells.
 
-自己在纸上检查这些等式：
+Check these equations:
 
-- 填了 k 格时，路径代价 g = k。
-- 若用剩余空格数作为 h，则 h = m - k。
-- 因而 f = g + h = m，对这个状态空间中的每个可达部分棋盘都一样。
+- After k assignments, path cost g = k.
+- If h is the number of remaining empty cells, then h = m - k.
+- Therefore f = g + h = m for every reachable partial board in this state space.
 
-这说明什么？“h 看起来接近最终工作量”并不保证能区分哪些分支值得搜索。以上推导只适用于一次动作恰好填一格、每步代价为 1 的定义；若动作同时传播多个赋值，必须重新分析。
+A heuristic that resembles the remaining work does not necessarily distinguish promising branches. This derivation applies specifically to actions that fill exactly one cell at unit cost. If an action propagates several assignments, analyse the costs again.
 
-## 自己回答
+## Questions to answer independently
 
-1. 对有解状态，至少还需多少次动作？对无解状态，最优剩余代价如何理解？
-2. 剩余空格数是否会高估最优代价？沿一条合法边它如何变化？
-3. 不同填格顺序会不会得到同一状态？状态判重需要保存什么？
-4. 当 f 都一样时，算法还要靠什么决定搜索顺序？这会影响实际行为吗？
-5. A* 保存候选前沿需要哪些内存？自己实现的回溯保存哪些内容？
-6. 你实现的 MRV 是选择变量的策略，还是已经定义好的 A* 路径代价启发函数？两者不要混写。
-7. 若提出冲突数作为 h，为什么需要检查它是否真能估计“还需多少步”，而不能只凭直觉命名？
+1. How many further actions are necessary from a solvable state? How should optimal remaining cost be understood for an unsatisfiable state?
+2. Can the number of empty cells overestimate the optimal remaining cost? How does it change along a legal edge?
+3. Can different assignment orders reach the same state? What must be stored for duplicate detection?
+4. If all f values are equal, what determines the search order? Can tie-breaking affect practical behaviour?
+5. What memory does A* need for its frontier? What information does the chosen backtracking implementation retain?
+6. Is MRV a variable-selection strategy or an already defined A* path-cost heuristic? Keep these concepts distinct.
+7. If proposing the number of conflicts as h, why must its relationship to the remaining number of actions be checked rather than assumed?
 
-不需要实现 A*；理解自己选定的状态、动作、代价与 h 之间的关系，再用自己的语言解释适用性和局限。
+An A* implementation is not required. Understand the relationship between states, actions, costs, and h, then explain its suitability and limitations.

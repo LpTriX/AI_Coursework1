@@ -1,59 +1,59 @@
-# Part 2C：宇航员扩展学习与检查路线
+# Part 2C: Astronaut Extension Learning and Validation Roadmap
 
-这是一份理解和验证清单，不包含提交用 PDDL 或报告正文。依赖基础模型交接，目前未开始实现。
+This is an understanding and validation checklist, not submission PDDL or report text. Implementation depends on the base-model handoff and has not started.
 
-## 1. 先确认基础版本
+## 1. Confirm the base version
 
-完成 [PDDL 交接清单](../docs/PDDL_HANDOFF.md)，记录真实 commit。先自己运行 Mission 2 并读懂计划，确认基础行为正确。
+Complete the [PDDL handoff checklist](../docs/PDDL_HANDOFF.md) and record the actual commit. Run Mission 2, understand its plan, and verify the base behaviour first.
 
-扩展时沿用 Mission 2 的地图、初始车辆与着陆器设置、六项目标。第二个着陆器的地点需要与基础版本一致，不能另选一个更方便的位置而未说明。
+Retain Mission 2's map, initial rover/lander setup, and six goals. Lander 2's location must match the base version; do not silently replace it with a more convenient choice.
 
-## 2. 自己列出新增事实与限制
+## 2. Identify the new facts and restrictions
 
-题目要求 Alice 属于 Lander 1，Bob 属于 Lander 2。各着陆器包含 docking bay 与 control room；宇航员只能在自己的着陆器内切换位置。初始 Alice 在 docking bay，Bob 在 control room。
+Alice belongs to Lander 1 and Bob to Lander 2. Each lander has a docking bay and a control room. Astronauts can move only within their own lander. Initially, Alice is in the docking bay and Bob is in the control room.
 
-逐个想清楚：
+Work through these questions:
 
-- 如何表示宇航员属于哪个着陆器，当前在哪个内部区域？
-- 如何避免一个宇航员同时位于两个区域？
-- 如何确保移动只发生在自己的着陆器内部？
-- 哪些原有动作需要增加位置限制？哪些动作不应受新增规则影响？
-- 限制是否通过动作条件真正生效，而不只是额外保存几个从不使用的事实？
+- How are an astronaut's lander association and current internal location represented?
+- How is an astronaut prevented from being in two areas simultaneously?
+- How is movement restricted to the astronaut's own lander?
+- Which existing actions need extra location conditions, and which should remain unaffected?
+- Do the conditions actually control action applicability, rather than merely recording unused facts?
 
-## 3. 对照题目的动作限制
+## 3. Match the required action restrictions
 
-| 行为 | 对应着陆器内必须满足的条件 |
+| Behaviour | Required condition inside the relevant lander |
 | --- | --- |
-| 部署月球车 | 宇航员在 docking bay |
-| 存储样本 | 宇航员在 docking bay |
-| 接收车辆传输的数据 | 宇航员在 control room |
+| Deploy a rover | An astronaut is in the docking bay |
+| Store a sample | An astronaut is in the docking bay |
+| Receive data transmitted by a rover | An astronaut is in the control room |
 
-基础的内存、样本容量、车辆归属、数据已采集和样本实际运回等条件仍需成立。新增扩展不能放松它们。
+The base requirements for memory, sample capacity, rover ownership, acquired data, and physical sample return must still hold. The extension must not relax them.
 
-## 4. 自己验证限制真的生效
+## 4. Verify that the restrictions have an effect
 
-先检查动作在给定状态是否适用，再检查完整计划。可以在本地用临时测试实例验证不允许的情况，最终仍只提交规定的五个 PDDL 文件。
+Check individual action applicability in a given state before checking complete plans. Temporary local problem instances can test forbidden cases; the final submission must still contain only the five required PDDL files.
 
-| 检查场景 | 按题意应有的结果 | 实际结果 / 证据 |
+| Scenario | Expected behaviour | Actual result / evidence |
 | --- | --- | --- |
-| 对应宇航员在控制室时部署车辆 | 该部署动作不可执行 | 未运行 |
-| 对应宇航员在 docking bay 时发送数据 | 该发送动作不可执行 | 未运行 |
-| 对应宇航员在控制室时存储样本 | 该存储动作不可执行 | 未运行 |
-| 宇航员改变到正确区域，其他条件也满足 | 相关动作可执行 | 未运行 |
-| 使用另一个着陆器的宇航员满足本着陆器条件 | 不允许 | 未运行 |
-| 宇航员尝试跨着陆器移动 | 不允许 | 未运行 |
-| 全部 Mission 3 目标 | 计划应完成六项目标并遵守全部规则 | 未运行 |
+| Deploy while the relevant astronaut is in the control room | Deployment is inapplicable | Not run |
+| Transmit while the relevant astronaut is in the docking bay | Transmission is inapplicable | Not run |
+| Store a sample while the relevant astronaut is in the control room | Storage is inapplicable | Not run |
+| Move the astronaut to the required area while all other conditions hold | The dependent action becomes applicable | Not run |
+| Use another lander's astronaut to meet a local condition | Forbidden | Not run |
+| Move an astronaut between landers | Forbidden | Not run |
+| Achieve every Mission 3 goal | The plan achieves all six goals and obeys all restrictions | Not run |
 
-## 5. 保存真实验证证据
+## 5. Retain real validation evidence
 
-每次运行记录：commit、domain/problem、规划器、执行方式、是否找到计划、原始计划以及你逐项检查的结论。不同规划器可能生成不同的合法计划，不要求逐步一致。
+For each run, record the commit, domain/problem files, planner, execution method, whether a plan was found, the raw plan, and the checks performed. Different planners may return different valid plans; action-by-action equality is not required.
 
-视频应展示宇航员先移动到指定区域，再执行依赖该位置的动作，并由你解释为什么需要这一步。不要只展示“成功找到计划”的提示。
+The video should show an astronaut moving to the required area before a dependent action, with an explanation of why the movement is necessary. A successful planner message alone is insufficient evidence of this behaviour.
 
-## 当前状态
+## Current status
 
-- 接口：等待宫成田交接。
-- 扩展 PDDL：未编写。
-- 规划器运行：未进行。
-- 计划有效性：未验证。
-- 报告与视频：待你们在完成实现后自行准备。
+- Interface: awaiting Chengtian Gong's handoff.
+- Extended PDDL: not written.
+- Planner execution: not performed.
+- Plan validity: not verified.
+- Report and video: to be prepared independently after implementation.

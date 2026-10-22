@@ -1,79 +1,79 @@
-# Part 1B：Python 学习与实现路线
+# Part 1B: Python Learning and Implementation Roadmap
 
-这是一份学习清单，不是报告正文、求解代码或实验结论。提交用实现由你自己编写。语言已于 2026-10-22 确认为 Python，建议使用本机可用的 Python 3，并在实际运行说明中写明版本。
+This is a learning checklist, not report text, solver code, or experimental conclusions. Write submission code independently. Python was selected on 2026-10-22. Use an available Python 3 installation and state the actual version in the run instructions.
 
-## 实现前要做的决定
+## Decisions before implementation
 
-- 输入格式：建议先支持 TXT，即 9 行，每行 9 个空格分隔的数字，0 表示空格。题目支持 TXT 或 CSV 中任一种即可。
-- 求解方法：建议先理解回溯，再考虑 MRV。题目只要求选一种方法实现，不需要实现多个算法。
-- 如何区分不合法输入与合法格式但无解的棋盘。
-- 如何判定最终棋盘满足原始给定数字，以及行、列、宫的全部规则。
-- 首个版本先完成可读的终端输入输出；PDF 最高档评分描述提及 GUI，决定投入前需要对照教师说明和剩余时间。
+- Input format: start with TXT containing 9 lines of 9 space-separated digits; 0 represents an empty cell. Supporting either TXT or CSV satisfies the format requirement.
+- Search method: understand backtracking first, then consider MRV. The task requires one implemented method, not several algorithms.
+- Decide how to distinguish invalid input from a correctly formatted but unsatisfiable board.
+- Decide how to verify that a completed board preserves all givens and satisfies every row, column, and box constraint.
+- Start with readable terminal input and output. The highest assessment band in the PDF mentions a GUI; consider the teaching team's guidance and available time before adding one.
 
-## 1. 读取和检查输入
+## 1. Read and validate input
 
-你先独立完成以下功能，不必立即写搜索：
+Implement these functions independently before adding search:
 
-- 从命令行指定的文件读取棋盘。
-- 检查是不是 9 行、每行 9 个值，是否全是 0 到 9 的整数。
-- 检查初始非零数字是否有行、列、宫冲突。
-- 将棋盘用固定、易读的格式打印出来。
+- Read a board from a file specified on the command line.
+- Check that it contains 9 rows of 9 integer values in the range 0–9.
+- Check the initial nonzero digits for row, column, and box conflicts.
+- Display the board in a consistent, readable layout.
 
-完成依据：用一个有效输入和几类无效输入实际运行，记录命令与观察结果。检查重复值时，空格 0 不应被当作给定数字。
+Completion evidence: actually run one valid input and several invalid cases, recording commands and observations. Empty cells containing 0 must not count as duplicate givens.
 
-先想清楚：
+Questions to resolve:
 
-1. 你的内存表示是什么？如何对应行和列？
-2. 多空格、空行、非整数、缺失文件会怎样？
-3. 出错时，用户能看懂原因吗？
+1. How is the board represented in memory, and how do its indices correspond to rows and columns?
+2. What happens with extra spaces, blank lines, non-integer tokens, or a missing file?
+3. Are error messages understandable to the user?
 
-## 2. 理解候选值和回溯
+## 2. Understand candidates and backtracking
 
-自己画一个小例子，说明一个空格为何能填某些数字、不能填另一些数字；再追踪一次“尝试—继续—失败—撤销”。
+Draw a small example explaining why an empty cell permits some digits and excludes others. Trace one sequence of trying a value, continuing, failing, and undoing the assignment.
 
-检查问题：
+Check:
 
-- 候选值是否同时考虑所在行、列和 3×3 宫？
-- 找到一个空格却没有可填数字时，程序应如何处理？
-- 尝试失败后，哪些改动需要还原？原始给定数字会不会被改掉？
-- 所有格子填满时，怎样确认结果真的合法？
+- Do candidates respect the row, column, and 3×3 box together?
+- What should happen when an empty cell has no legal candidate?
+- Which changes must be undone after a failed attempt? Can the original givens change?
+- How is a fully populated board confirmed to be valid?
 
-## 3. 明确 MRV 和计数口径
+## 3. Define MRV and measurement counters
 
-如果选择 MRV，先解释它如何决定“下一格”，以及并列时如何保证选择一致。MRV 是搜索策略的一部分，不代表实验一定比所有替代方法更快。
+If using MRV, explain how it selects the next cell and breaks ties consistently. MRV is a search strategy; it does not establish that the implementation outperforms every alternative.
 
-计数前自己写清楚搜索节点、赋值尝试和回溯分别在什么事件发生时加一。一次测试只用一种口径，跨题目保持一致。
+Before measuring, define exactly which events increment search nodes, assignment attempts, and backtracks. Keep these definitions consistent across puzzles.
 
-## 4. 功能检查
+## 4. Functional checks
 
-- 有解且有多个空格的棋盘：结果正确且保留原始数字。
-- 已完成的合法棋盘：正确识别。
-- 几乎完成的棋盘：检查边界和停止条件。
-- 初始冲突棋盘：得到明确反馈。
-- 初始无冲突但无解的棋盘：搜索能结束并报告无解。
-- 允许多解的输入：题目要求找到一个解，不要擅自声称唯一解。
+- A solvable board with multiple empty cells: return a correct completion that preserves the givens.
+- An already completed valid board: recognise it correctly.
+- A nearly completed board: check boundary cases and termination.
+- Conflicting initial givens: provide a clear message.
+- An initially conflict-free but unsatisfiable board: terminate and report no solution.
+- An input with multiple solutions: find one solution without claiming uniqueness.
 
-注意区分：格式错误、给定数字冲突和搜索后判定无解，是不同情况。
+Malformed input, conflicting givens, and unsatisfiability discovered by search are different outcomes.
 
-## 5. 定量评价
+## 5. Quantitative evaluation
 
-使用多个题目，保存来源、原始输入、运行条件和原始测量。表格见 [EXPERIMENTS.md](EXPERIMENTS.md)。题目难度标签不等于你的算法实际搜索难度。
+Use several puzzles and retain their sources, original inputs, execution conditions, and raw measurements. See [EXPERIMENTS.md](EXPERIMENTS.md). A published difficulty label does not necessarily predict the difficulty for this particular algorithm.
 
-先确定计时范围；对速度很快的样例考虑重复测量，并注明统计方法。独立验证得到的解，不要只凭打印了完整棋盘就记录成功。没有运行就保持“未测”，不要填示例数字冒充实测。
+Define the timing scope first. Consider repeated measurements for very fast examples and state the summary statistic. Independently validate returned solutions rather than recording success merely because a full board was printed. Leave unmeasured cases marked as not measured.
 
-## 6. A* 理论分析准备
+## 6. Prepare the theoretical A* analysis
 
-不要求实现 A*。自己回答以下问题，作为理解检查，不把本清单直接复制进报告：
+An A* implementation is not required. Answer these questions as understanding checks rather than copying this checklist into the report:
 
-- 什么构成一个状态？一次动作是什么？什么时候到达目标？
-- 路径代价怎么定义？它是否对应你真正想优化的内容？
-- 你提出的启发函数估计的究竟是什么？
-- 它是否可采纳？为什么？可采纳是否意味着有很强的区分能力？
-- 大量不同填数顺序是否可能产生相同棋盘？
-- 与所选回溯/CSP 方法相比，A* 的存储和搜索负担有什么差异？
+- What is a state, what is an action, and when is the goal reached?
+- How is path cost defined, and does it match the intended objective?
+- What does the proposed heuristic estimate?
+- Is it admissible, and why? Does admissibility guarantee useful discrimination?
+- Can different assignment orders produce the same board?
+- How do A* search and storage requirements compare with the chosen backtracking/CSP approach?
 
-报告应由你自行组织和撰写，结合真实实现、实测数据和可靠参考文献。不要把“运行更快”等尚未测量的判断写成结果。
+Organise and write the report independently using the actual implementation, real measurements, and reliable references. Do not present an unmeasured claim such as “runs faster” as an experimental result.
 
-## 你的第一个里程碑
+## First implementation milestone
 
-先完成第 1 步的读取、验证和打印。把你自己写的代码保存进仓库，并记录至少一个有效输入和一个无效输入的实际运行结果。之后再检查并进入搜索实现。
+Complete the reading, validation, and display tasks in Step 1. Save the implementation in the repository and record actual runs for at least one valid and one invalid input. Review that behaviour before moving on to search.
