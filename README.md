@@ -5,6 +5,7 @@
 ## 从这里开始
 
 - [Python 数独学习参考](reference/part1b/README.md)
+- [A* 理解练习](learning/A_STAR_WALKTHROUGH.md)
 - [分工与时间安排](docs/WORK_SPLIT.md)
 - [进度日志](docs/PROGRESS.md)
 - [你的 Part 1B 路线与第一步](learning/PART1B.md)
