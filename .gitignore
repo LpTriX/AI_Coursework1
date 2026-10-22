@@ -1,0 +1,24 @@
+# Python 的本地缓存和环境
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Java 构建产物
+*.class
+out/
+target/
+
+# 本机和编辑器文件
+.DS_Store
+.idea/
+
+# 本地密钥与身份资料
+.env
+.env.*
+!.env.example
+
+# 课程原件和个人提交材料，保留在本地
+/materials/
+/submission/
+/recordings/
