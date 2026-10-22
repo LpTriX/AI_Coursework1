@@ -1,9 +1,10 @@
 # F29AI Coursework 1 — 小组工作记录
 
-本仓库记录任务安排、学习过程、实现进度和验证证据。当前已完成项目准备，作业代码尚未实现。
+本仓库记录任务安排、学习过程、实现进度和验证证据。另有单独标注的 AI 学习参考实现；它不是学生自行编写的提交材料。
 
 ## 从这里开始
 
+- [Python 数独学习参考](reference/part1b/README.md)
 - [分工与时间安排](docs/WORK_SPLIT.md)
 - [进度日志](docs/PROGRESS.md)
 - [你的 Part 1B 路线与第一步](learning/PART1B.md)
