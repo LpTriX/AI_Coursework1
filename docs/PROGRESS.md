@@ -58,3 +58,12 @@
 - 已加入 A* 状态/动作/代价/启发函数的理解练习，说明在“每步填一格且代价为 1”的模型下，空格数启发式会使 f 保持常数。
 - 实际验证：`python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark -v`，21 个测试通过。
 - 下一步：在已提交的代码版本上进行三题各 5 次测量，保存原始 JSON；这些练习题不是正式难度认证数据集。
+
+## 2026-10-22 — 阶段 7：保存参考实现的实际测量
+
+- 在已提交的版本 `a431cc1eddeea8f7a47bc8a792a31e1d3b8428a0` 上执行 `python3 -m reference.part1b.benchmark --repeats 5`。
+- 三个练习输入共运行 15 次，原始统计、计时、环境与哈希已保存至 `reference/part1b/results/benchmark.json`，并附结果摘要。
+- 逐项核对：每题有五次记录、同题搜索计数一致，所有找到的解都通过独立验证；被测代码与输入无未提交改动。
+- 练习中位耗时：branching 85.508 ms，standard 0.342 ms，立即矛盾的无解输入 0.016 ms；这些数据只描述本机本次运行。
+- 已保留学生正式实验表为空，避免把 AI 参考结果误作学生自己实现的实验。
+- 当前状态：Part 1B 学习参考的求解、测试、实验工具和 A* 理解练习可用；正式学生实现/报告、GUI 和 Part 2C 尚未完成。Part 2C 依赖宫成田的基础 domain 与 Mission 2。
