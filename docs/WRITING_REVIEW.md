@@ -1,5 +1,8 @@
 # English Writing and Evidence Review
 
+Historical review of the pre-implementation snapshot. For the newer base PDDL
+and contribution draft, see `PDDL_HANDOFF.md` and the latest `PROGRESS.md` entry.
+
 Review date: 2026-10-25.
 
 ## Scope

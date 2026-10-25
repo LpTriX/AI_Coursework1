@@ -1,0 +1,472 @@
+[
+  {
+    "step": 1,
+    "action": "(deploy explorer-c base-c site-6)",
+    "dynamic_state": [
+      "(aboard explorer-b base-b)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(storage-free base-a)",
+      "(storage-free base-b)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 2,
+    "action": "(deploy explorer-b base-b site-1)",
+    "dynamic_state": [
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-1)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(storage-free base-a)",
+      "(storage-free base-b)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 3,
+    "action": "(capture-image explorer-c site-6)",
+    "dynamic_state": [
+      "(carrying-image explorer-c site-6)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-1)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(storage-free base-a)",
+      "(storage-free base-b)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 4,
+    "action": "(transmit-image explorer-c base-c site-6 site-6)",
+    "dynamic_state": [
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-1)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(storage-free base-a)",
+      "(storage-free base-b)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 5,
+    "action": "(collect-sample explorer-b site-1)",
+    "dynamic_state": [
+      "(carrying-sample explorer-b site-1)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-1)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-c)",
+      "(storage-free base-a)",
+      "(storage-free base-b)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 6,
+    "action": "(store-sample explorer-b base-b site-1 site-1)",
+    "dynamic_state": [
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-1)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 7,
+    "action": "(move explorer-b site-1 site-2)",
+    "dynamic_state": [
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-2)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 8,
+    "action": "(capture-image explorer-b site-2)",
+    "dynamic_state": [
+      "(carrying-image explorer-b site-2)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-2)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 9,
+    "action": "(move explorer-b site-2 site-4)",
+    "dynamic_state": [
+      "(carrying-image explorer-b site-2)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 10,
+    "action": "(transmit-image explorer-b base-b site-2 site-4)",
+    "dynamic_state": [
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 11,
+    "action": "(perform-scan explorer-b site-4)",
+    "dynamic_state": [
+      "(carrying-scan explorer-b site-4)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 12,
+    "action": "(transmit-scan explorer-b base-b site-4 site-4)",
+    "dynamic_state": [
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 13,
+    "action": "(move explorer-a site-2 site-3)",
+    "dynamic_state": [
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-3)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 14,
+    "action": "(capture-image explorer-a site-3)",
+    "dynamic_state": [
+      "(carrying-image explorer-a site-3)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-3)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 15,
+    "action": "(move explorer-a site-3 site-5)",
+    "dynamic_state": [
+      "(carrying-image explorer-a site-3)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-5)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 16,
+    "action": "(transmit-image explorer-a base-a site-3 site-5)",
+    "dynamic_state": [
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-5)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 17,
+    "action": "(collect-sample explorer-a site-5)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-5)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 18,
+    "action": "(move explorer-a site-5 site-6)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-6)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 19,
+    "action": "(perform-scan explorer-a site-6)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(carrying-scan explorer-a site-6)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-6)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 20,
+    "action": "(move explorer-a site-6 site-4)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(carrying-scan explorer-a site-6)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-4)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 21,
+    "action": "(move explorer-a site-4 site-2)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(carrying-scan explorer-a site-6)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 22,
+    "action": "(transmit-scan explorer-a base-a site-6 site-2)",
+    "dynamic_state": [
+      "(carrying-sample explorer-a site-5)",
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(scan-saved site-4 base-b)",
+      "(scan-saved site-6 base-a)",
+      "(storage-free base-a)",
+      "(storage-free base-c)"
+    ]
+  },
+  {
+    "step": 23,
+    "action": "(store-sample explorer-a base-a site-5 site-2)",
+    "dynamic_state": [
+      "(image-saved site-2 base-b)",
+      "(image-saved site-3 base-a)",
+      "(image-saved site-6 base-c)",
+      "(memory-free explorer-a)",
+      "(memory-free explorer-b)",
+      "(memory-free explorer-c)",
+      "(rover-at explorer-a site-2)",
+      "(rover-at explorer-b site-4)",
+      "(rover-at explorer-c site-6)",
+      "(sample-free explorer-a)",
+      "(sample-free explorer-b)",
+      "(sample-free explorer-c)",
+      "(sample-stored site-1 base-b)",
+      "(sample-stored site-5 base-a)",
+      "(scan-saved site-4 base-b)",
+      "(scan-saved site-6 base-a)",
+      "(storage-free base-c)"
+    ]
+  }
+]

@@ -83,3 +83,20 @@ This is a work log, not report text. Each entry records what changed, how it was
 ## Format for future entries
 
 Record the date, owner and objective, actual changes, commands and results, remaining issues, and next step. Use real commit identifiers when referring to code; do not invent implementation history or test outcomes. Write future entries in English.
+
+## 2026-10-25 — Chengtian Gong: base PDDL and contribution draft
+
+- Confirmed remote main matched downloaded snapshot 907128310be91d417e7c8c5aca2b5e71134e02cb.
+- Preserved the original five PDDL paths and names. Implemented only the three
+  Part A/B files; the two Part C files remain unchanged starter templates.
+- Added a generic STRIPS/typing domain, capacity tokens, ownership checks,
+  directed roads, provenance-aware wireless data sends and physical sample storage.
+- Fixed permitted landing choices: Mission 1 lander1=wp1; Mission 2 lander2=wp1.
+- Ran Pyperplan 2.1 (greedy best-first, hFF): Mission 1 found 10 actions, Mission 2
+  found 20. Replayed all steps against independent specification rules.
+- Checked 2,496 action instances in 16 coherent states and a renamed three-rover,
+  seven-goal instance (23 actions). All checks passed; this is targeted validation.
+- Prepared a bilingual Part 1A and Part 2A/2B contribution draft with references,
+  implementation interface, reproducible validation command and Chinese handoff guide.
+- Remaining: partner accepts interface, implements Part 2C, completes own Part 1B;
+  pair reviews drafts, merges report, records video and confirms OUC deadline.

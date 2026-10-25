@@ -1,0 +1,106 @@
+[
+  {
+    "step": 1,
+    "action": "(deploy rover1 lander1 wp1)",
+    "dynamic_state": [
+      "(memory-free rover1)",
+      "(rover-at rover1 wp1)",
+      "(sample-free rover1)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 2,
+    "action": "(collect-sample rover1 wp1)",
+    "dynamic_state": [
+      "(carrying-sample rover1 wp1)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp1)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 3,
+    "action": "(store-sample rover1 lander1 wp1 wp1)",
+    "dynamic_state": [
+      "(memory-free rover1)",
+      "(rover-at rover1 wp1)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)"
+    ]
+  },
+  {
+    "step": 4,
+    "action": "(move rover1 wp1 wp4)",
+    "dynamic_state": [
+      "(memory-free rover1)",
+      "(rover-at rover1 wp4)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)"
+    ]
+  },
+  {
+    "step": 5,
+    "action": "(move rover1 wp4 wp3)",
+    "dynamic_state": [
+      "(memory-free rover1)",
+      "(rover-at rover1 wp3)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)"
+    ]
+  },
+  {
+    "step": 6,
+    "action": "(perform-scan rover1 wp3)",
+    "dynamic_state": [
+      "(carrying-scan rover1 wp3)",
+      "(rover-at rover1 wp3)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)"
+    ]
+  },
+  {
+    "step": 7,
+    "action": "(move rover1 wp3 wp5)",
+    "dynamic_state": [
+      "(carrying-scan rover1 wp3)",
+      "(rover-at rover1 wp5)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)"
+    ]
+  },
+  {
+    "step": 8,
+    "action": "(transmit-scan rover1 lander1 wp3 wp5)",
+    "dynamic_state": [
+      "(memory-free rover1)",
+      "(rover-at rover1 wp5)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)",
+      "(scan-saved wp3 lander1)"
+    ]
+  },
+  {
+    "step": 9,
+    "action": "(capture-image rover1 wp5)",
+    "dynamic_state": [
+      "(carrying-image rover1 wp5)",
+      "(rover-at rover1 wp5)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)",
+      "(scan-saved wp3 lander1)"
+    ]
+  },
+  {
+    "step": 10,
+    "action": "(transmit-image rover1 lander1 wp5 wp5)",
+    "dynamic_state": [
+      "(image-saved wp5 lander1)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp5)",
+      "(sample-free rover1)",
+      "(sample-stored wp1 lander1)",
+      "(scan-saved wp3 lander1)"
+    ]
+  }
+]

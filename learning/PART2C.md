@@ -1,6 +1,6 @@
 # Part 2C: Astronaut Extension Learning and Validation Roadmap
 
-This is an understanding and validation checklist, not submission PDDL or report text. Implementation depends on the base-model handoff and has not started.
+This is an understanding and validation checklist, not submission PDDL or report text. The base model is now available locally; the extension has not started.
 
 ## 1. Confirm the base version
 
@@ -52,7 +52,7 @@ The video should show an astronaut moving to the required area before a dependen
 
 ## Current status
 
-- Interface: awaiting Chengtian Gong's handoff.
+- Interface: implemented and documented in `docs/PDDL_HANDOFF.md`; partner acceptance pending.
 - Extended PDDL: not written.
 - Planner execution: not performed.
 - Plan validity: not verified.

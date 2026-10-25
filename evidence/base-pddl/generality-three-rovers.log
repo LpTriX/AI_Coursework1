@@ -1,0 +1,17 @@
+Parsing Domain /Users/xuebao/Documents/Coursework/CW1/PDDL/PartA&B/domain.pddl
+Parsing Problem /var/folders/8y/rkq3rlts4t394rkkt0w01llw0000gn/T/f29ai-general-d8e6w1l1/renamed-three-rovers.pddl
+14 Predicates parsed
+8 Actions parsed
+12 Objects parsed
+0 Constants parsed
+Grounding start: lunar-mission-2
+Relevance analysis removed 55 facts
+Grounding end: lunar-mission-2
+138 Variables created
+306 Operators created
+Search start: lunar-mission-2
+Initial h value: 21.000000
+Goal reached. Start extraction of solution.
+42617 Nodes expanded
+Search end: lunar-mission-2
+Search time: 6e+01

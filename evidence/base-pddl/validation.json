@@ -1,0 +1,92 @@
+{
+  "planner": "Pyperplan 2.1",
+  "search": "greedy best-first",
+  "heuristic": "hFF",
+  "python": "3.12.14",
+  "platform": "macOS-26.2-arm64-arm-64bit",
+  "run_at_asia_shanghai": "2026-10-25T17:44:29.446190+08:00",
+  "domain_general_parameters_verified": true,
+  "map_edges_verified": [
+    6,
+    9
+  ],
+  "semantic_checks": {
+    "coherent_states": 16,
+    "action_instances_checked": 2496,
+    "allowed_with_correct_effects": 63,
+    "forbidden": 2433,
+    "coverage": [
+      "undeployed restrictions",
+      "single directed edges",
+      "unique rover location",
+      "shared image/scan memory",
+      "memory released after sending",
+      "wireless sending away from lander and away from data source",
+      "data cannot be sent before acquisition",
+      "ownership including co-located landers",
+      "sample and data slots independent",
+      "sample cannot be stored remotely",
+      "one carried sample",
+      "one stored sample per lander",
+      "no repeated deployment"
+    ]
+  },
+  "missions": {
+    "mission1": {
+      "plan_length": 10,
+      "elapsed_seconds_parse_ground_search": 0.0031131249997997656,
+      "all_goals_verified": true,
+      "all_steps_checked_against_independent_rules": true,
+      "action_counts": {
+        "capture-image": 1,
+        "collect-sample": 1,
+        "deploy": 1,
+        "move": 3,
+        "perform-scan": 1,
+        "store-sample": 1,
+        "transmit-image": 1,
+        "transmit-scan": 1
+      }
+    },
+    "mission2": {
+      "plan_length": 20,
+      "elapsed_seconds_parse_ground_search": 0.405345084000146,
+      "all_goals_verified": true,
+      "all_steps_checked_against_independent_rules": true,
+      "action_counts": {
+        "capture-image": 2,
+        "collect-sample": 2,
+        "deploy": 1,
+        "move": 7,
+        "perform-scan": 2,
+        "store-sample": 2,
+        "transmit-image": 2,
+        "transmit-scan": 2
+      }
+    }
+  },
+  "generality_instance": {
+    "plan_length": 23,
+    "elapsed_seconds_parse_ground_search": 59.65364479199343,
+    "all_goals_verified": true,
+    "all_steps_checked_against_independent_rules": true,
+    "action_counts": {
+      "capture-image": 3,
+      "collect-sample": 2,
+      "deploy": 2,
+      "move": 7,
+      "perform-scan": 2,
+      "store-sample": 2,
+      "transmit-image": 3,
+      "transmit-scan": 2
+    },
+    "description": "Renamed Mission 2, third rover/lander, extra image goal",
+    "problem_text": "(define (problem lunar-mission-2)\n    (:domain lunar)\n    (:objects\n        explorer-c - rover\n        base-c - lander\n        explorer-a explorer-b - rover\n        base-a base-b - lander\n        site-1 site-2 site-3 site-4 site-5 site-6 - waypoint\n    )\n    (:init\n        (belongs-to explorer-c base-c)\n        (lander-at base-c site-6)\n        (aboard explorer-c base-c)\n        (memory-free explorer-c)\n        (sample-free explorer-c)\n        (storage-free base-c)\n        (belongs-to explorer-a base-a)\n        (belongs-to explorer-b base-b)\n        ; Required setup: explorer-a is deployed at its lander at WP2.\n        (lander-at base-a site-2)\n        (rover-at explorer-a site-2)\n        ; Chosen base-b site: WP1. Mission 3 must retain this choice.\n        (lander-at base-b site-1)\n        (aboard explorer-b base-b)\n        (memory-free explorer-a)\n        (memory-free explorer-b)\n        (sample-free explorer-a)\n        (sample-free explorer-b)\n        (storage-free base-a)\n        (storage-free base-b)\n        ; Figure 3: three two-way pairs and three one-way edges (nine total).\n        (connected site-1 site-2)\n        (connected site-2 site-1)\n        (connected site-2 site-4)\n        (connected site-4 site-2)\n        (connected site-3 site-5)\n        (connected site-5 site-3)\n        (connected site-2 site-3)\n        (connected site-5 site-6)\n        (connected site-6 site-4)\n    )\n    (:goal (and\n        (image-saved site-3 base-a)\n        (scan-saved site-4 base-b)\n        (image-saved site-2 base-b)\n        (scan-saved site-6 base-a)\n        (image-saved site-6 base-c)\n        (sample-stored site-5 base-a)\n        (sample-stored site-1 base-b)\n    ))\n)\n"
+  },
+  "sha256": {
+    "PDDL/PartA&B/domain.pddl": "b5d77bc818f8280599c2aff928429baf8781811b4fa05f9d6e6de30aa0befbf5",
+    "PDDL/PartA&B/mission1.pddl": "6180437254c3e5447c47ab71ba87bfd6656ae3dd766ef1c31f4994f1b1592757",
+    "PDDL/PartA&B/mission2.pddl": "31ff0a50715cc3ee64340e5669450624bc7fc660e4837477123ddd0be5dc9fdf"
+  },
+  "source_base_commit": "907128310be91d417e7c8c5aca2b5e71134e02cb"
+}

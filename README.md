@@ -4,6 +4,14 @@ This repository records task allocation, implementation progress, and validation
 
 Repository documentation, code comments, program output, and future coursework materials should be written in English.
 
+## Current base-PDDL handoff (25 October 2026)
+
+Chengtian Gong's base domain and Mission 1/2 are implemented and locally validated.
+Start with [the implemented interface and run instructions](docs/PDDL_HANDOFF.md),
+[actual validation evidence](evidence/base-pddl/README.md), and
+[the bilingual contribution draft](reports/gong_contribution_bilingual.md).
+Part 2C, the combined report and video are still outstanding.
+
 ## Start here
 
 - [Python Sudoku learning reference](reference/part1b/README.md)
