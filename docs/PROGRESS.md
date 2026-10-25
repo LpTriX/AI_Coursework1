@@ -71,6 +71,15 @@ This is a work log, not report text. Each entry records what changed, how it was
 - Code comments, program output, filenames, and raw measurement records were already in English. Executable code, practice inputs, and measurement values were not edited.
 - Validation: scanned tracked text for remaining Chinese characters, checked relative Markdown links and whitespace, and compared executable code, inputs, and raw measurements with their preceding versions. No new solver tests or performance measurements were needed for this documentation-only change.
 
+## 2026-10-25: English writing and evidence review
+
+- Audited the existing measurement summary and A* exercise before editing.
+- No report manuscript or author writing sample was present. Used concise technical English for the existing learning materials rather than claiming a finished coursework report.
+- Checked empirical statements against the saved benchmark records and recorded their evidence status in `docs/WRITING_REVIEW.md`.
+- Shortened long sentences, replaced indirect wording, and linked the existing independent verifier. Preserved numeric values, equations, existing references, attribution, and limitations.
+- Confirmed that the collaborator has not yet started the base PDDL. Part 2C has no implemented base model to extend.
+- No solver code, inputs, raw measurements, or test results were changed or regenerated during this review. The report, PDDL implementations, and video remain outstanding.
+
 ## Format for future entries
 
 Record the date, owner and objective, actual changes, commands and results, remaining issues, and next step. Use real commit identifiers when referring to code; do not invent implementation history or test outcomes. Write future entries in English.

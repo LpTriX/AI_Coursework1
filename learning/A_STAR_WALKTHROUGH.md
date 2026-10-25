@@ -4,7 +4,7 @@ This note explains Sudoku as an A* search problem and relates the heuristic to t
 
 ## Fix the model before discussing h
 
-Consider a model in which a state is a legal partial board preserving the original givens. An action fills one empty cell with a digit that does not violate the current row, column, or box constraints. Every action costs 1. Let the initial board contain m empty cells.
+In this model, a state is a legal partial board that preserves the original givens. An action fills one empty cell. The chosen digit must satisfy the current row, column, and box constraints. Every action costs 1. Let the initial board contain m empty cells.
 
 Check these equations:
 
@@ -12,7 +12,7 @@ Check these equations:
 - If h is the number of remaining empty cells, then h = m - k.
 - Therefore f = g + h = m for every reachable partial board in this state space.
 
-A heuristic that resembles the remaining work does not necessarily distinguish promising branches. This derivation applies specifically to actions that fill exactly one cell at unit cost. If an action propagates several assignments, analyse the costs again.
+Under these assumptions, the empty-cell heuristic gives every reachable partial board the same f value. It therefore cannot distinguish branches by f. The derivation assumes that each action fills exactly one cell at unit cost. If an action propagates several assignments, analyse the costs again.
 
 ## Questions to answer independently
 

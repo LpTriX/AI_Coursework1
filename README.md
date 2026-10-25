@@ -10,6 +10,7 @@ Repository documentation, code comments, program output, and future coursework m
 - [A* understanding exercise](learning/A_STAR_WALKTHROUGH.md)
 - [Task allocation and schedule](docs/WORK_SPLIT.md)
 - [Progress log](docs/PROGRESS.md)
+- [English writing and evidence review](docs/WRITING_REVIEW.md)
 - [Part 1B learning and implementation roadmap](learning/PART1B.md)
 - [Sudoku experiment log template](learning/EXPERIMENTS.md)
 - [Part 2C learning and validation roadmap](learning/PART2C.md)

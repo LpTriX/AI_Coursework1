@@ -1,6 +1,6 @@
 # Actual Measurements of the Reference Implementation
 
-These records provide evidence of running the Sudoku reference implementation on the local machine.
+These records document local runs of the Sudoku solver. The raw records identify the measured version and environment.
 
 Raw data: [benchmark.json](benchmark.json). The JSON is authoritative; the table presents median times rounded to the nearest microsecond.
 
@@ -17,8 +17,8 @@ Raw data: [benchmark.json](benchmark.json). The JSON is authoritative; the table
 | standard.txt | One valid solution found | 0.342 | 52 | 51 | 0 |
 | unsatisfiable.txt | No solution | 0.016 | 1 | 0 | 0 |
 
-Outcomes and search counters were identical across all five repetitions of each input; timings varied. Every returned completion passed independent checks of rows, columns, boxes, and original givens. Uniqueness was not tested.
+Each input produced the same outcome and search counters across all five repetitions. Timings varied. Every returned completion passed the separate [row, column, box, and given-digit checks](../benchmark.py). Uniqueness was not tested.
 
-The unsatisfiable example can be checked manually: the first row requires 1, but the first column already contains 1, so the first cell has no legal value. This example covers an immediate contradiction, not the performance of every unsatisfiable puzzle.
+The unsatisfiable example can be checked manually. The first row requires 1, but the first column already contains 1. The first cell therefore has no legal value. This example covers an immediate contradiction, not the performance of every unsatisfiable puzzle.
 
-These three examples have no certified difficulty ratings or verified external provenance. Other search methods were not benchmarked. The table therefore does not show that the method is fast on every puzzle or better than an untested alternative. For formal coursework, use puzzles with traceable sources, measure independently written code, and analyse the results independently.
+These three examples have no certified difficulty ratings or verified external provenance. Other search methods were not benchmarked. These results do not establish performance on other inputs or superiority to untested alternatives. For further experiments, select puzzles with traceable sources and retain measurements of the tested code version.
