@@ -1,81 +1,86 @@
-# Python Sudoku Solver
+# Sudoku Solver — F29AI Coursework Part 1B
 
-Part 1B implementation: input validation, MRV backtracking with incremental candidate sets, a command-line interface, and search statistics.
+A from-scratch Sudoku solver for Part 1B: depth-first search with
+chronological backtracking and the minimum-remaining-values (MRV) heuristic.
+The search, the input handling and the validation are all implemented here;
+no Sudoku, CSP or constraint-solver library is used.
 
-Requirements: Python 3.9 or later. Only the standard library is used; there are no Sudoku, CSP, or constraint-solver dependencies.
+## Requirements
 
-## Current implementation
+- Python 3.9 or later (developed and measured on CPython 3.9.6).
+- Standard library only; there are no third-party dependencies.
 
-The reference includes input validation, MRV backtracking, a command-line interface, and search statistics. Standard-library unittest checks independently verify rows, columns, boxes, and original givens in returned solutions.
+## Files
 
-Run from the repository root:
-
-```sh
-python3 reference/part1b/solver.py reference/part1b/puzzles/standard.txt --stats
-python3 -m reference.part1b.solver reference/part1b/puzzles/branching.txt --stats
-```
-
-Exit codes: 0 means a solution was found; 1 means the input is valid but unsatisfiable; 2 means an input error occurred. Finding one solution does not prove uniqueness. There is no default time limit, and worst-case search may take a long time.
-
-Run the tests from the repository root:
-
-```sh
-python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark -v
-```
-
-## Following the code
-
-1. `read_puzzle` / `parse_puzzle`: convert files and text into a board.
-2. `validate_board`: check shape, values, and initial conflicts.
-3. `solve`: copy the input, build the static peer lists, and initialise one candidate bitmask per empty cell from the givens.
-4. The nested `search`: read the stored candidate counts, reject a state with an empty candidate set, and otherwise select a cell using MRV.
-5. Try a candidate and recurse. Assigning a digit clears it from the masks of the 20 peers; on failure, undo restores exactly the peers that were cleared before trying the next candidate.
-6. `main`: display a solution or no-solution message and optional statistics.
-
-Candidate sets are maintained incrementally: each assignment updates only the 20 peers of the assigned cell. There is no AC-3 queue or arc-consistency pass beyond this local propagation. Do not describe algorithms that are absent from the implementation.
-
-## Measurement definitions
-
-| Field | Definition |
+| Path | What it is |
 | --- | --- |
-| `nodes` | One per recursive search call, including the root, failed states, and the successful terminal state |
-| `assignments` | One per candidate digit attempted in the selected cell |
-| `backtracks` | One per candidate assignment undone after its child search fails |
-| `max_depth` | Maximum number of simultaneously assigned non-given cells; the root has depth 0 |
-| `elapsed_seconds` | Starts after initial input validation; includes search setup and recursion, excluding file reading, initial validation, and output |
-
-MRV ties use row-major order, and candidate digits are tried in ascending order. Solutions and counters repeat deterministically for a fixed input; timings depend on the environment.
+| `solver.py` | the solver: parsing, validation, MRV backtracking, a CLI, and a completion counter |
+| `test_solver.py` | 17 correctness tests with an independent set-based oracle |
+| `benchmark.py` | repeatable timing and counter measurements, raw JSON output |
+| `puzzles/` | five practice puzzles, all constructed locally; see [puzzles/README.md](puzzles/README.md) |
+| `results/` | raw benchmark records and the summary; see [results/README.md](results/README.md) |
+| `tools/make_puzzles.py` | regenerates every puzzle and verifies uniqueness |
+| `report/part1b_report.md` | the Part 1B report text, including the A* analysis |
+| `test_results.txt` | saved output of the full test run |
+| `video_notes.md` | talking points for the presentation video |
 
 ## Input format
 
-- Exactly 9 lines of 9 single digits; 0 represents an empty cell.
-- TXT separates values with whitespace; CSV separates values with commas.
-- A normal final newline is accepted. Extra blank lines, missing or additional rows, non-integers, out-of-range values, and conflicting givens are rejected.
+A TXT file with exactly 9 lines of 9 single digits each, separated by
+whitespace; a row of 9 bare digits (e.g. `530070000`) is also accepted.
+`0` marks an empty cell, `1-9` are givens. CSV files are read with the
+`--csv` flag. Malformed input and conflicting givens are reported with a
+clear message and exit code 2.
 
-## Practice inputs
+## Usage
 
-`standard.txt` and `branching.txt` were transcribed as practice inputs during this session. Their external provenance, uniqueness, and formal difficulty have not been verified. Their names are identifiers, not report-ready difficulty ratings or source citations.
-
-`unsatisfiable.txt` is a counterexample adapted from a rule-generated completed board. Its givens contain no immediate duplicates, but it has no completion. The program must identify unsatisfiability through search or candidate checks rather than treating it as a formatting error.
-
-For formal experiments, independently collect several puzzles with traceable sources and retain actual measurements.
-
-## Repeated measurements
-
-Run from the repository root:
+From this folder:
 
 ```sh
-python3 -m reference.part1b.benchmark --repeats 5
+# solve a puzzle and show the completed board
+python3 solver.py puzzles/p2.txt
+
+# also print search statistics
+python3 solver.py puzzles/p2.txt --stats
+
+# comparison mode: fixed row-major cell ordering instead of MRV
+python3 solver.py puzzles/p2.txt --order row-major --stats
+
+# CSV input: convert a TXT puzzle first, then read it back with --csv
+tr ' ' ',' < puzzles/p1.txt > /tmp/p1.csv
+python3 solver.py /tmp/p1.csv --csv
+
+# run all correctness tests (saved output kept in test_results.txt)
+python3 -m unittest -v test_solver
+
+# record measurements (5 runs per puzzle, raw JSON in results/)
+python3 benchmark.py --order mrv
+python3 benchmark.py --order row-major --output results/benchmark_rowmajor.json
+
+# regenerate the practice puzzles
+python3 tools/make_puzzles.py
 ```
 
-Optionally provide one or more TXT/CSV input paths before `--repeats`. The default inputs are the three practice puzzles in this directory.
+Exit codes: `0` a solution was found, `1` the input is valid but has no
+solution, `2` an input error occurred.
 
-The default output overwrites `results/benchmark.json`. Use `--output` with a different filename to retain separate experiments. Raw records include each run's counters and time, input/code SHA-256 hashes, the code commit, whether relevant code is uncommitted, and environment details. Timing excludes result verification. Each returned completion is separately checked using sets for rows, columns, boxes, and original givens.
+## The method in one paragraph
 
-Saved evidence is available in the [measurement summary](results/README.md) and [15 raw run records](results/benchmark.json). These are practice measurements recorded on the earlier solver version (the measured commit is in the raw data); the current solver keeps the same search counts.
+The board is a list of nine rows of nine integers; `0` is an empty cell.
+At each search node the solver recomputes, for every empty cell, the set of
+digits that appear in none of the cell's row, column or 3x3 box. The empty
+cell with the fewest such candidates is filled next (ties: topmost, then
+leftmost; digits in ascending order). A failed subtree resets only that
+cell back to `0`, because no propagation is performed, so there is nothing
+else to undo. A full board is a solution; an empty cell with no legal
+digit is a dead end; exhausting the tree means the puzzle has no solution.
 
-A no-solution record is the current algorithm's result, not a proof obtained from a second solver. The supplied counterexample can be checked manually: its first row needs 1, but its first column already contains 1, leaving the first cell with no legal value.
+## Deliverables checklist (Part 1B)
 
-## A* understanding exercise
-
-See the [A* derivation and self-check questions](../../learning/A_STAR_WALKTHROUGH.md). The exercise is theoretical; it does not establish unperformed algorithm comparisons.
+- [x] Python source files: `solver.py`, `test_solver.py`, `benchmark.py`
+- [x] English README: this file (Python version, dependencies, input format, run commands)
+- [x] Raw experiment data: `results/benchmark.json`, `results/benchmark_rowmajor.json`
+- [x] English Part 1B text: `report/part1b_report.md` (algorithm, implementation, testing, experiments, strengths and limitations, alternatives, A* analysis)
+- [x] Video material: `video_notes.md`
+- [ ] Coordinate the page count with Part 1A (1A + 1B together: 4 pages maximum)
+- [ ] Final polish of the report text before submission

@@ -1,6 +1,7 @@
 {
-  "created_at_utc": "2026-10-22T11:01:57.181479+00:00",
+  "created_at_utc": "2026-10-27T13:36:22.337164+00:00",
   "repeats": 5,
+  "cell_order": "mrv",
   "environment": {
     "python": "3.9.6",
     "implementation": "CPython",
@@ -8,234 +9,376 @@
     "os_release": "27.0.0",
     "machine": "arm64"
   },
-  "version": {
-    "commit": "a431cc1eddeea8f7a47bc8a792a31e1d3b8428a0",
-    "benchmark_inputs_or_code_dirty": false
-  },
-  "solver_sha256": "399dcb5dca378ec499c766c2b4af8d76c7d9c693ab494a7d6cca5513218f2809",
-  "timing_scope": "Search initialization and recursion; excludes parsing, initial validation, output and verification.",
+  "solver_sha256": "7eed993d133f22a47d3858794d5d196a2c0fce9b7663c5f01d6beb024540d281",
+  "timing_scope": "Search only; excludes file reading, input validation, printing and verification.",
   "notes": [
-    "Practice inputs are not an externally sourced or difficulty-certified dataset.",
-    "Solved results are independently checked; no uniqueness test is performed.",
-    "A no-solution return is recorded, not independently proved by a second solver."
+    "Puzzles are constructed locally (tools/make_puzzles.py); no external difficulty ratings are claimed.",
+    "Every solved run is independently checked; uniqueness was verified with count_solutions.",
+    "A no-solution return is recorded, not independently proved with a second solver."
   ],
   "cases": [
     {
-      "puzzle": "branching.txt",
-      "input_sha256": "917df3fc5d413fa92bfbbb72802e42c08ab3aca60cd5f103e1d22a4c23d72e2b",
-      "empty_cells": 60,
+      "puzzle": "completed.txt",
+      "empty_cells": 0,
+      "input_sha256": "c095435158e12c824b75d61d12302919db81b551b883148cbb618db7aa425b80",
       "runs": [
         {
           "run": 1,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 4.708300000000332e-05,
           "stats": {
-            "nodes": 10102,
-            "assignments": 10101,
-            "backtracks": 10041,
-            "max_depth": 60,
-            "elapsed_seconds": 0.084871542
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
           }
         },
         {
           "run": 2,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 4.329099999999392e-05,
           "stats": {
-            "nodes": 10102,
-            "assignments": 10101,
-            "backtracks": 10041,
-            "max_depth": 60,
-            "elapsed_seconds": 0.129090458
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
           }
         },
         {
           "run": 3,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 4.191599999999601e-05,
           "stats": {
-            "nodes": 10102,
-            "assignments": 10101,
-            "backtracks": 10041,
-            "max_depth": 60,
-            "elapsed_seconds": 0.087269166
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
           }
         },
         {
           "run": 4,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 4.2332999999998566e-05,
           "stats": {
-            "nodes": 10102,
-            "assignments": 10101,
-            "backtracks": 10041,
-            "max_depth": 60,
-            "elapsed_seconds": 0.085507667
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
           }
         },
         {
           "run": 5,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 4.241600000000345e-05,
           "stats": {
-            "nodes": 10102,
-            "assignments": 10101,
-            "backtracks": 10041,
-            "max_depth": 60,
-            "elapsed_seconds": 0.085166833
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
           }
         }
       ],
       "summary": {
-        "median_seconds": 0.085507667,
-        "min_seconds": 0.084871542,
-        "max_seconds": 0.129090458,
+        "median_seconds": 4.241600000000345e-05,
+        "min_seconds": 4.191599999999601e-05,
+        "max_seconds": 4.708300000000332e-05,
         "result_and_counters_identical": true
       }
     },
     {
-      "puzzle": "standard.txt",
-      "input_sha256": "4a4c84fde6996f7eed51044258334ec43e2514b524413134b6d0e27fd9bc8e30",
+      "puzzle": "few_blanks.txt",
+      "empty_cells": 5,
+      "input_sha256": "f08ed16b028f63cc82376513f0b4400b65d96cb5433576dc430764fc9134c422",
+      "runs": [
+        {
+          "run": 1,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 9.229200000000076e-05,
+          "stats": {
+            "nodes": 6,
+            "placements": 5,
+            "backtracks": 0,
+            "max_depth": 5
+          }
+        },
+        {
+          "run": 2,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 8.395800000000203e-05,
+          "stats": {
+            "nodes": 6,
+            "placements": 5,
+            "backtracks": 0,
+            "max_depth": 5
+          }
+        },
+        {
+          "run": 3,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 8.275000000000643e-05,
+          "stats": {
+            "nodes": 6,
+            "placements": 5,
+            "backtracks": 0,
+            "max_depth": 5
+          }
+        },
+        {
+          "run": 4,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 8.825000000000499e-05,
+          "stats": {
+            "nodes": 6,
+            "placements": 5,
+            "backtracks": 0,
+            "max_depth": 5
+          }
+        },
+        {
+          "run": 5,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 8.608300000000069e-05,
+          "stats": {
+            "nodes": 6,
+            "placements": 5,
+            "backtracks": 0,
+            "max_depth": 5
+          }
+        }
+      ],
+      "summary": {
+        "median_seconds": 8.608300000000069e-05,
+        "min_seconds": 8.275000000000643e-05,
+        "max_seconds": 9.229200000000076e-05,
+        "result_and_counters_identical": true
+      }
+    },
+    {
+      "puzzle": "p1.txt",
       "empty_cells": 51,
+      "input_sha256": "8457c36ee6661472ce7c7f1ecaf4a366a900e74e84b937a0cb987f5308a5551d",
       "runs": [
         {
           "run": 1,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 0.0023077910000000035,
           "stats": {
             "nodes": 52,
-            "assignments": 51,
+            "placements": 51,
             "backtracks": 0,
-            "max_depth": 51,
-            "elapsed_seconds": 0.000341625
+            "max_depth": 51
           }
         },
         {
           "run": 2,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 0.002378000000000005,
           "stats": {
             "nodes": 52,
-            "assignments": 51,
+            "placements": 51,
             "backtracks": 0,
-            "max_depth": 51,
-            "elapsed_seconds": 0.000342333
+            "max_depth": 51
           }
         },
         {
           "run": 3,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 0.002212875000000003,
           "stats": {
             "nodes": 52,
-            "assignments": 51,
+            "placements": 51,
             "backtracks": 0,
-            "max_depth": 51,
-            "elapsed_seconds": 0.000347
+            "max_depth": 51
           }
         },
         {
           "run": 4,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 0.0021281660000000008,
           "stats": {
             "nodes": 52,
-            "assignments": 51,
+            "placements": 51,
             "backtracks": 0,
-            "max_depth": 51,
-            "elapsed_seconds": 0.000377792
+            "max_depth": 51
           }
         },
         {
           "run": 5,
           "result": "solved",
           "solution_verified": true,
+          "elapsed_seconds": 0.002193874999999998,
           "stats": {
             "nodes": 52,
-            "assignments": 51,
+            "placements": 51,
             "backtracks": 0,
-            "max_depth": 51,
-            "elapsed_seconds": 0.00033875
+            "max_depth": 51
           }
         }
       ],
       "summary": {
-        "median_seconds": 0.000342333,
-        "min_seconds": 0.00033875,
-        "max_seconds": 0.000377792,
+        "median_seconds": 0.002212875000000003,
+        "min_seconds": 0.0021281660000000008,
+        "max_seconds": 0.002378000000000005,
         "result_and_counters_identical": true
       }
     },
     {
-      "puzzle": "unsatisfiable.txt",
-      "input_sha256": "ac41178d02915660a66c2758a775a1ab4081265d96bbee7bec386c2737c8cab9",
-      "empty_cells": 2,
+      "puzzle": "p2.txt",
+      "empty_cells": 56,
+      "input_sha256": "72fef92e11dc30f1a9f9640e9d8ae43b0f0517d73d33d0b966c938d1ab32e1a4",
       "runs": [
         {
           "run": 1,
-          "result": "unsatisfiable",
-          "solution_verified": null,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 0.027463875,
           "stats": {
-            "nodes": 1,
-            "assignments": 0,
-            "backtracks": 0,
-            "max_depth": 0,
-            "elapsed_seconds": 1.65e-05
+            "nodes": 594,
+            "placements": 593,
+            "backtracks": 537,
+            "max_depth": 56
           }
         },
         {
           "run": 2,
-          "result": "unsatisfiable",
-          "solution_verified": null,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 0.027303999999999995,
           "stats": {
-            "nodes": 1,
-            "assignments": 0,
-            "backtracks": 0,
-            "max_depth": 0,
-            "elapsed_seconds": 1.5542e-05
+            "nodes": 594,
+            "placements": 593,
+            "backtracks": 537,
+            "max_depth": 56
           }
         },
         {
           "run": 3,
-          "result": "unsatisfiable",
-          "solution_verified": null,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 0.027353124999999992,
           "stats": {
-            "nodes": 1,
-            "assignments": 0,
-            "backtracks": 0,
-            "max_depth": 0,
-            "elapsed_seconds": 1.6625e-05
+            "nodes": 594,
+            "placements": 593,
+            "backtracks": 537,
+            "max_depth": 56
           }
         },
         {
           "run": 4,
-          "result": "unsatisfiable",
-          "solution_verified": null,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 0.02764224999999998,
           "stats": {
-            "nodes": 1,
-            "assignments": 0,
-            "backtracks": 0,
-            "max_depth": 0,
-            "elapsed_seconds": 1.55e-05
+            "nodes": 594,
+            "placements": 593,
+            "backtracks": 537,
+            "max_depth": 56
           }
         },
         {
           "run": 5,
-          "result": "unsatisfiable",
-          "solution_verified": null,
+          "result": "solved",
+          "solution_verified": true,
+          "elapsed_seconds": 0.026806790999999996,
           "stats": {
-            "nodes": 1,
-            "assignments": 0,
-            "backtracks": 0,
-            "max_depth": 0,
-            "elapsed_seconds": 1.5167e-05
+            "nodes": 594,
+            "placements": 593,
+            "backtracks": 537,
+            "max_depth": 56
           }
         }
       ],
       "summary": {
-        "median_seconds": 1.5542e-05,
-        "min_seconds": 1.5167e-05,
-        "max_seconds": 1.6625e-05,
+        "median_seconds": 0.027353124999999992,
+        "min_seconds": 0.026806790999999996,
+        "max_seconds": 0.02764224999999998,
+        "result_and_counters_identical": true
+      }
+    },
+    {
+      "puzzle": "unsolvable.txt",
+      "empty_cells": 2,
+      "input_sha256": "ac41178d02915660a66c2758a775a1ab4081265d96bbee7bec386c2737c8cab9",
+      "runs": [
+        {
+          "run": 1,
+          "result": "unsolvable",
+          "solution_verified": null,
+          "elapsed_seconds": 4.33749999999844e-05,
+          "stats": {
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
+          }
+        },
+        {
+          "run": 2,
+          "result": "unsolvable",
+          "solution_verified": null,
+          "elapsed_seconds": 4.183299999999113e-05,
+          "stats": {
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
+          }
+        },
+        {
+          "run": 3,
+          "result": "unsolvable",
+          "solution_verified": null,
+          "elapsed_seconds": 4.0042000000017897e-05,
+          "stats": {
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
+          }
+        },
+        {
+          "run": 4,
+          "result": "unsolvable",
+          "solution_verified": null,
+          "elapsed_seconds": 3.975000000000506e-05,
+          "stats": {
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
+          }
+        },
+        {
+          "run": 5,
+          "result": "unsolvable",
+          "solution_verified": null,
+          "elapsed_seconds": 4.000000000001225e-05,
+          "stats": {
+            "nodes": 1,
+            "placements": 0,
+            "backtracks": 0,
+            "max_depth": 0
+          }
+        }
+      ],
+      "summary": {
+        "median_seconds": 4.0042000000017897e-05,
+        "min_seconds": 3.975000000000506e-05,
+        "max_seconds": 4.33749999999844e-05,
         "result_and_counters_identical": true
       }
     }
