@@ -30,7 +30,7 @@ At the time of that handoff, Part 2C, the combined report, and video were outsta
 The contents of `reference/part1b/` were replaced with the files supplied by
 Pinxin Liu from `Sudoku_Part1B`. Run its commands from that directory; its
 README, tests, report draft and measurement files describe the current version.
-Earlier progress and review entries refer to earlier versions. 
+Earlier progress and review entries refer to earlier versions.
 
 ## Start here
 

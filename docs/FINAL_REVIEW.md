@@ -11,7 +11,7 @@ No new functional defect was found in the reviewed scope. This is not a claim
 that testing proves correctness for every possible input.
 
 The working code was retained. Changes focus on clearer English and a separate
-English version of the collaborator's contribution. 
+English version of the collaborator's contribution.
 
 ## Checks performed
 
