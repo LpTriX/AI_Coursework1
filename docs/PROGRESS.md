@@ -100,3 +100,27 @@ Record the date, owner and objective, actual changes, commands and results, rema
   implementation interface, reproducible validation command and Chinese handoff guide.
 - Remaining: partner accepts interface, implements Part 2C, completes own Part 1B;
   pair reviews drafts, merges report, records video and confirms OUC deadline.
+
+## 2026-10-27 — Pinxin Liu: Sudoku optimisation, Part 2C comments, prose revision
+
+- Optimised `reference/part1b/solver.py`: candidate sets are kept as bitmasks
+  and updated only for the 20 peers of the assigned cell, instead of recomputing
+  every domain on every node. Search order and the node/assignment/backtrack
+  counts are unchanged.
+- The tests caught a real bug in the first version of this change: with two
+  assignments of the same digit in different units of a peer, a naive undo
+  restored a digit that was still in use. Each assignment now records the peers
+  it actually cleared and restores exactly those.
+- Actual validation: `python3 -m unittest reference.part1b.test_solver
+  reference.part1b.test_benchmark -v`; all 21 tests passed. Rerun of the local
+  benchmark: branching median 43.0 ms, down from 89.2 ms measured on this machine
+  immediately before the change, with identical counters (10102/10101/10041).
+  The saved historical measurement records were not regenerated.
+- Part C PDDL: added short file headers and plainer comments only; no predicate,
+  action, effect or fact changed. Revalidated with
+  `.venv/bin/python tools/validate_extension.py --output /tmp/f29ai-part2c-opt`:
+  Mission 1/2/3 plans 10/20/24 actions, both astronauts move, all gated actions
+  verified. The saved `evidence/part2c/` files were left untouched.
+- Rewrote the report-facing prose (English contribution draft, bilingual draft,
+  Part 2C implementation notes) in plainer, less formulaic English and Chinese.
+  Numbers, equations, citations, and limitations are unchanged.

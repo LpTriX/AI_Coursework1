@@ -1,3 +1,6 @@
+; Mission 3: the astronaut extension of Mission 2. Rover and lander starts,
+; roads and goals are the same as Mission 2; alice and bob gate the lander
+; operations from their rooms.
 (define (problem lunar-mission-3)
     (:domain lunar-extended)
     (:objects
@@ -8,7 +11,7 @@
         l1-docking-bay l1-control-room l2-docking-bay l2-control-room - room
     )
     (:init
-        ; Astronauts remain within their assigned stationary landers.
+        ; Astronauts stay in their assigned landers.
         (astronaut-belongs-to alice lander1)
         (astronaut-belongs-to bob lander2)
         (room-of l1-docking-bay lander1)

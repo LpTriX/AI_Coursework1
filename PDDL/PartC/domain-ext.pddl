@@ -1,3 +1,9 @@
+; Extended lunar domain for Part 2C. Everything from the base domain
+; (PDDL/PartA&B/domain.pddl) keeps its meaning; the extra astronaut and
+; room types only gate the four receiving actions. deploy, transmit-image,
+; transmit-scan and store-sample gain an astronaut + room pair and require
+; the right astronaut to be standing in the right room of the receiving
+; lander. move-astronaut is the one new action.
 (define (domain lunar-extended)
     (:requirements :strips :typing)
     (:types rover lander waypoint astronaut room)
@@ -27,16 +33,17 @@
         (docking-bay ?area - room)
         (control-room ?area - room)
         (room-connected ?from - room ?to - room)
-        ; Exactly one current room is maintained for each astronaut.
+        ; One current room per astronaut; moving swaps it.
         (astronaut-at ?a - astronaut ?area - room)
     )
 
-    ; Deployment creates the rover's first waypoint location.
+    ; Places the rover at its lander's waypoint. The astronaut gate requires
+    ; someone assigned to that lander to be standing in its docking bay.
     (:action deploy
         :parameters (?r - rover ?l - lander ?w - waypoint
                      ?a - astronaut ?area - room)
         :precondition (and
-            ; The supporting astronaut and room must belong to this lander.
+            ; The astronaut and room must belong to this lander.
             (astronaut-belongs-to ?a ?l) (room-of ?area ?l)
             (docking-bay ?area) (astronaut-at ?a ?area)
             (belongs-to ?r ?l) (aboard ?r ?l) (lander-at ?l ?w)
@@ -63,13 +70,14 @@
         :effect (and (not (memory-free ?r)) (carrying-scan ?r ?source))
     )
 
-    ; Wireless: current and source locations may differ. No proximity to a
-    ; lander, or previous lander visit, is required. Held data is required.
+    ; Wireless as in the base domain: the rover may be anywhere and need not
+    ; have visited the lander. The astronaut gate requires someone assigned
+    ; to the receiving lander to be standing in its control room.
     (:action transmit-image
         :parameters (?r - rover ?l - lander ?source - waypoint
                      ?current - waypoint ?a - astronaut ?area - room)
         :precondition (and
-            ; The supporting astronaut and room must belong to this lander.
+            ; The astronaut and room must belong to this lander.
             (astronaut-belongs-to ?a ?l) (room-of ?area ?l)
             (control-room ?area) (astronaut-at ?a ?area)
             (belongs-to ?r ?l) (rover-at ?r ?current)
@@ -85,7 +93,7 @@
         :parameters (?r - rover ?l - lander ?source - waypoint
                      ?current - waypoint ?a - astronaut ?area - room)
         :precondition (and
-            ; The supporting astronaut and room must belong to this lander.
+            ; The astronaut and room must belong to this lander.
             (astronaut-belongs-to ?a ?l) (room-of ?area ?l)
             (control-room ?area) (astronaut-at ?a ?area)
             (belongs-to ?r ?l) (rover-at ?r ?current)
@@ -105,13 +113,15 @@
         :effect (and (not (sample-free ?r)) (carrying-sample ?r ?source))
     )
 
-    ; Samples must physically return to the rover's own lander.
+    ; As in the base domain the rover must be at its own lander, and
     ; storage-free is consumed permanently: no unload or discard action.
+    ; The astronaut gate requires someone assigned to the receiving lander
+    ; to be standing in its docking bay.
     (:action store-sample
         :parameters (?r - rover ?l - lander ?source - waypoint
                      ?current - waypoint ?a - astronaut ?area - room)
         :precondition (and
-            ; The supporting astronaut and room must belong to this lander.
+            ; The astronaut and room must belong to this lander.
             (astronaut-belongs-to ?a ?l) (room-of ?area ?l)
             (docking-bay ?area) (astronaut-at ?a ?area)
             (belongs-to ?r ?l) (rover-at ?r ?current) (lander-at ?l ?current)
@@ -123,8 +133,8 @@
         )
     )
 
-    ; Both rooms must be inside the astronaut's own lander. The old location
-    ; is removed, so moving does not leave an astronaut in two rooms.
+    ; Both rooms must belong to the astronaut's own lander. The old room
+    ; fact is deleted, so the astronaut is never in two rooms at once.
     (:action move-astronaut
         :parameters (?a - astronaut ?l - lander ?from - room ?to - room)
         :precondition (and

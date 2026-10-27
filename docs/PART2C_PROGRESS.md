@@ -46,3 +46,14 @@ submission package is complete.
   existing references, formal definitions, and numerical results.
 - The report still needs its missing sections and cover details. The video,
   final package, and merge into `main` are also outstanding.
+
+## 2026-10-27: Comment cleanup and prose revision
+
+- Simplified the Part C PDDL comments and added short file headers. No
+  predicate, action, effect or fact changed.
+- Reran `.venv/bin/python tools/validate_extension.py --output /tmp/f29ai-part2c-opt`:
+  Mission 1/2/3 plans 10/20/24 actions, both astronauts move, all gated actions
+  have the matching astronaut and room. Saved evidence under `evidence/part2c/`
+  was left untouched.
+- Rewrote `docs/PART2C_IMPLEMENTATION.md` in plainer English; all numbers,
+  tables, commands and limitations are unchanged.
