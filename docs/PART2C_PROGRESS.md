@@ -12,7 +12,23 @@
 - Parsed the files with Pyperplan 2.1 and checked 24,380 typed action instances
   across 23 coherent states: 180 permitted instances had the expected effects,
   and 24,200 forbidden instances were rejected.
-- Full mission planning and saved replay evidence are the next validation step.
+- Full mission planning and saved replay evidence were the next validation step.
+
+## 2026-10-27: Planning and regression validation
+
+- Committed the implementation as `b84b6d3e092696b4713180232aa0cff482e51a7e`
+  before collecting the planning evidence.
+- Ran `.venv/bin/python tools/validate_extension.py` with Pyperplan 2.1,
+  greedy best-first search, and hFF.
+- Replanned and independently replayed Mission 1 (10 actions), Mission 2
+  (20 actions), and Mission 3 (24 actions). All goals were reached.
+- Mission 3 includes four astronaut room changes. Both Alice and Bob move,
+  and every gated action has the appropriate astronaut in the correct room.
+- Saved raw plans, logs, traces, environment details, and hashes under
+  `evidence/part2c/`. Checked that the base sources and original evidence remain
+  unchanged.
+- Part 2C implementation and targeted validation are complete. This does not
+  establish plan optimality or exhaustive coverage of every reachable state.
 
 This log records the Part 2C implementation separately from the collaborator's
 base-model history. It does not claim that the combined report, video, or final

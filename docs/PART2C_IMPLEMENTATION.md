@@ -92,6 +92,11 @@ traces, source hashes, environment details, and a machine-readable summary.
 Existing `evidence/base-pddl` files are not overwritten. Use `--output` with a
 different directory to retain additional runs.
 
+The [saved validation run](../evidence/part2c/README.md) contains successful
+plans and independent replays for all three missions, plus the targeted action
+applicability checks. Mission 3's saved plan has 24 actions, including four
+astronaut movements.
+
 ## Demonstration checklist
 
 - Show Bob leaving the control room before deployment becomes possible.

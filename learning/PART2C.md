@@ -1,6 +1,6 @@
 # Part 2C: Astronaut Extension Learning and Validation Roadmap
 
-This is an understanding and validation checklist, not submission PDDL or report text. The base model is now available locally; the extension has not started.
+This is an understanding and validation checklist, not submission PDDL or report text. The extension is now implemented and validated. See the [implementation details](../docs/PART2C_IMPLEMENTATION.md) and [saved evidence](../evidence/part2c/README.md).
 
 ## 1. Confirm the base version
 
@@ -36,13 +36,13 @@ Check individual action applicability in a given state before checking complete 
 
 | Scenario | Expected behaviour | Actual result / evidence |
 | --- | --- | --- |
-| Deploy while the relevant astronaut is in the control room | Deployment is inapplicable | Not run |
-| Transmit while the relevant astronaut is in the docking bay | Transmission is inapplicable | Not run |
-| Store a sample while the relevant astronaut is in the control room | Storage is inapplicable | Not run |
-| Move the astronaut to the required area while all other conditions hold | The dependent action becomes applicable | Not run |
-| Use another lander's astronaut to meet a local condition | Forbidden | Not run |
-| Move an astronaut between landers | Forbidden | Not run |
-| Achieve every Mission 3 goal | The plan achieves all six goals and obeys all restrictions | Not run |
+| Deploy while the relevant astronaut is in the control room | Deployment is inapplicable | Passed in typed action checks |
+| Transmit while the relevant astronaut is in the docking bay | Transmission is inapplicable | Passed for images and scans |
+| Store a sample while the relevant astronaut is in the control room | Storage is inapplicable | Passed in typed action checks |
+| Move the astronaut to the required area while all other conditions hold | The dependent action becomes applicable | Passed in checks and plan replay |
+| Use another lander's astronaut to meet a local condition | Forbidden | Passed, including co-located landers |
+| Move an astronaut between landers | Forbidden | Passed, including a cross-lander adjacency |
+| Achieve every Mission 3 goal | The plan achieves all six goals and obeys all restrictions | Passed by independent replay |
 
 ## 5. Retain real validation evidence
 
@@ -52,8 +52,8 @@ The video should show an astronaut moving to the required area before a dependen
 
 ## Current status
 
-- Interface: implemented and documented in `docs/PDDL_HANDOFF.md`; partner acceptance pending.
-- Extended PDDL: not written.
-- Planner execution: not performed.
-- Plan validity: not verified.
-- Report and video: to be prepared independently after implementation.
+- Interface: based on the handoff; additions are documented in `docs/PART2C_IMPLEMENTATION.md`.
+- Extended PDDL: both Part C files are complete.
+- Planner execution: all three missions run locally with Pyperplan 2.1.
+- Plan validity: checked against an independent rule model; all six Mission 3 goals achieved.
+- Report and video: still outstanding.

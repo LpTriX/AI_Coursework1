@@ -1,0 +1,499 @@
+[
+  {
+    "step": 1,
+    "action": "(move-astronaut bob lander2 l2-control-room l2-docking-bay)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(aboard rover2 lander2)",
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(storage-free lander1)",
+      "(storage-free lander2)"
+    ]
+  },
+  {
+    "step": 2,
+    "action": "(deploy rover2 lander2 wp1 bob l2-docking-bay)",
+    "astronaut_gate": {
+      "astronaut": "bob",
+      "room": "l2-docking-bay",
+      "lander": "lander2",
+      "required_room_type": "docking-bay",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 1
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp1)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(storage-free lander1)",
+      "(storage-free lander2)"
+    ]
+  },
+  {
+    "step": 3,
+    "action": "(collect-sample rover2 wp1)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(carrying-sample rover2 wp1)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp1)",
+      "(sample-free rover1)",
+      "(storage-free lander1)",
+      "(storage-free lander2)"
+    ]
+  },
+  {
+    "step": 4,
+    "action": "(store-sample rover2 lander2 wp1 wp1 bob l2-docking-bay)",
+    "astronaut_gate": {
+      "astronaut": "bob",
+      "room": "l2-docking-bay",
+      "lander": "lander2",
+      "required_room_type": "docking-bay",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 1
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp1)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 5,
+    "action": "(move rover2 wp1 wp2)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp2)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 6,
+    "action": "(capture-image rover2 wp2)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(carrying-image rover2 wp2)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp2)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 7,
+    "action": "(move rover2 wp2 wp4)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-docking-bay)",
+      "(carrying-image rover2 wp2)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 8,
+    "action": "(move-astronaut bob lander2 l2-docking-bay l2-control-room)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover2 wp2)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 9,
+    "action": "(transmit-image rover2 lander2 wp2 wp4 bob l2-control-room)",
+    "astronaut_gate": {
+      "astronaut": "bob",
+      "room": "l2-control-room",
+      "lander": "lander2",
+      "required_room_type": "control-room",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 8
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 10,
+    "action": "(perform-scan rover2 wp4)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-scan rover2 wp4)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover1)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 11,
+    "action": "(transmit-scan rover2 lander2 wp4 wp4 bob l2-control-room)",
+    "astronaut_gate": {
+      "astronaut": "bob",
+      "room": "l2-control-room",
+      "lander": "lander2",
+      "required_room_type": "control-room",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 8
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 12,
+    "action": "(move rover1 wp2 wp3)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp3)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 13,
+    "action": "(capture-image rover1 wp3)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover1 wp3)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp3)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 14,
+    "action": "(move rover1 wp3 wp5)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover1 wp3)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp5)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 15,
+    "action": "(collect-sample rover1 wp5)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover1 wp3)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp5)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 16,
+    "action": "(move rover1 wp5 wp6)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover1 wp3)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp6)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 17,
+    "action": "(move-astronaut alice lander1 l1-docking-bay l1-control-room)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-image rover1 wp3)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp6)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 18,
+    "action": "(transmit-image rover1 lander1 wp3 wp6 alice l1-control-room)",
+    "astronaut_gate": {
+      "astronaut": "alice",
+      "room": "l1-control-room",
+      "lander": "lander1",
+      "required_room_type": "control-room",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 17
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp6)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 19,
+    "action": "(perform-scan rover1 wp6)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(carrying-scan rover1 wp6)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp6)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 20,
+    "action": "(move rover1 wp6 wp4)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(carrying-scan rover1 wp6)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp4)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 21,
+    "action": "(move rover1 wp4 wp2)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(carrying-scan rover1 wp6)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 22,
+    "action": "(transmit-scan rover1 lander1 wp6 wp2 alice l1-control-room)",
+    "astronaut_gate": {
+      "astronaut": "alice",
+      "room": "l1-control-room",
+      "lander": "lander1",
+      "required_room_type": "control-room",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 17
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-control-room)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(scan-saved wp6 lander1)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 23,
+    "action": "(move-astronaut alice lander1 l1-control-room l1-docking-bay)",
+    "astronaut_gate": null,
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(carrying-sample rover1 wp5)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(scan-saved wp4 lander2)",
+      "(scan-saved wp6 lander1)",
+      "(storage-free lander1)"
+    ]
+  },
+  {
+    "step": 24,
+    "action": "(store-sample rover1 lander1 wp5 wp2 alice l1-docking-bay)",
+    "astronaut_gate": {
+      "astronaut": "alice",
+      "room": "l1-docking-bay",
+      "lander": "lander1",
+      "required_room_type": "docking-bay",
+      "astronaut_present_before_action": true,
+      "most_recent_astronaut_move_step": 23
+    },
+    "dynamic_state": [
+      "(astronaut-at alice l1-docking-bay)",
+      "(astronaut-at bob l2-control-room)",
+      "(image-saved wp2 lander2)",
+      "(image-saved wp3 lander1)",
+      "(memory-free rover1)",
+      "(memory-free rover2)",
+      "(rover-at rover1 wp2)",
+      "(rover-at rover2 wp4)",
+      "(sample-free rover1)",
+      "(sample-free rover2)",
+      "(sample-stored wp1 lander2)",
+      "(sample-stored wp5 lander1)",
+      "(scan-saved wp4 lander2)",
+      "(scan-saved wp6 lander1)"
+    ]
+  }
+]

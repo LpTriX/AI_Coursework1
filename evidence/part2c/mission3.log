@@ -1,0 +1,17 @@
+Parsing Domain /Users/davidliu/26秋/introductionOfAI/AI_Coursework1/PDDL/PartC/domain-ext.pddl
+Parsing Problem /Users/davidliu/26秋/introductionOfAI/AI_Coursework1/PDDL/PartC/mission3.pddl
+20 Predicates parsed
+9 Actions parsed
+16 Objects parsed
+0 Constants parsed
+Grounding start: lunar-mission-3
+Relevance analysis removed 30 facts
+Grounding end: lunar-mission-3
+96 Variables created
+216 Operators created
+Search start: lunar-mission-3
+Initial h value: 20.000000
+Goal reached. Start extraction of solution.
+2218 Nodes expanded
+Search end: lunar-mission-3
+Search time: 3.6

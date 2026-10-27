@@ -4,13 +4,24 @@ This repository records task allocation, implementation progress, and validation
 
 Repository documentation, code comments, program output, and future coursework materials should be written in English.
 
-## Current base-PDDL handoff (25 October 2026)
+## Astronaut extension (27 October 2026)
+
+Part 2C is implemented in the existing `PDDL/PartC` files. All three missions
+have been planned and independently replayed locally. Mission 3's saved plan
+has 24 actions, including four astronaut room changes.
+
+See [the extension interfaces and run instructions](docs/PART2C_IMPLEMENTATION.md),
+[validation evidence](evidence/part2c/README.md), and
+[the Part 2C progress log](docs/PART2C_PROGRESS.md).
+The combined report, video, and final submission package are still outstanding.
+
+## Base-PDDL handoff (25 October 2026)
 
 Chengtian Gong's base domain and Mission 1/2 are implemented and locally validated.
 Start with [the implemented interface and run instructions](docs/PDDL_HANDOFF.md),
 [actual validation evidence](evidence/base-pddl/README.md), and
 [the bilingual contribution draft](reports/gong_contribution_bilingual.md).
-Part 2C, the combined report and video are still outstanding.
+At the time of that handoff, Part 2C, the combined report, and video were outstanding.
 
 ## Start here
 
