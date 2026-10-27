@@ -99,10 +99,12 @@ def format_board(board: Sequence[Sequence[int]]) -> str:
 def solve(grid: Sequence[Sequence[int]]) -> SolveResult:
     """Return the first solution, or None after exhausting the search.
 
-    Choose an unfilled cell with the fewest legal values (MRV). Ties use
-    row-major order and values are tried ascending. Every recursive call
-    recomputes domains and rejects any empty domain, including those later
-    than a singleton in row-major order. Caller-owned input is never modified.
+    Candidate sets are kept as bitmasks in a 9x9 table and updated only for
+    the 20 peers of the cell being assigned, so no node recomputes domains
+    from scratch. The next cell is the one with the fewest candidates (MRV);
+    ties use row-major order and values are tried ascending. A node is
+    rejected as soon as any unfilled cell has no candidates left.
+    Caller-owned input is never modified.
 
     This finds one solution; it does not prove uniqueness. Search depth is
     bounded by the number of initially empty cells (at most 81).
@@ -110,54 +112,79 @@ def solve(grid: Sequence[Sequence[int]]) -> SolveResult:
     original = validate_board(grid)
     started = perf_counter_ns()
     board = [list(row) for row in original]
-    rows, columns, boxes = [0] * 9, [0] * 9, [0] * 9
+    # Static peer lists: the empty cells sharing a row, column, or box with
+    # each cell. Givens are excluded because their constraints are applied
+    # once below and their own masks are never read again.
+    peers = [[()] * 9 for _ in range(9)]
+    masks = [[ALL_DIGITS] * 9 for _ in range(9)]
+    counts = [[9] * 9 for _ in range(9)]
     empty = []
     for r in range(9):
         for c in range(9):
-            value = board[r][c]
-            if value == 0:
-                empty.append((r, c))
+            br, bc = r // 3 * 3, c // 3 * 3
+            unit = ([(r, cc) for cc in range(9) if cc != c]
+                    + [(rr, c) for rr in range(9) if rr != r]
+                    + [(rr, cc) for rr in range(br, br + 3) for cc in range(bc, bc + 3)
+                       if rr != r and cc != c])
+            peers[r][c] = [(rr, cc) for rr, cc in unit if board[rr][cc] == 0]
+            if board[r][c]:
+                bit = 1 << (board[r][c] - 1)
+                for pr, pc in peers[r][c]:
+                    if masks[pr][pc] & bit:
+                        masks[pr][pc] &= ~bit
+                        counts[pr][pc] -= 1
             else:
-                bit = 1 << (value - 1)
-                rows[r] |= bit
-                columns[c] |= bit
-                boxes[(r // 3) * 3 + c // 3] |= bit
+                empty.append((r, c))
     stats = SearchStats()
+    # Each active assignment pushes the peers whose masks it actually
+    # cleared; its undo pops and restores exactly those. A peer can already
+    # lack the bit when the same digit is used in two different units of
+    # that peer, so testing the mask alone on undo is not enough.
+    removed_stack = []
+
+    def assign(r, c, bit):
+        board[r][c] = bit.bit_length()
+        removed = []
+        for pr, pc in peers[r][c]:
+            if masks[pr][pc] & bit:
+                masks[pr][pc] &= ~bit
+                counts[pr][pc] -= 1
+                removed.append((pr, pc))
+        removed_stack.append(removed)
+
+    def undo(r, c):
+        bit = 1 << (board[r][c] - 1)
+        board[r][c] = 0
+        for pr, pc in removed_stack.pop():
+            masks[pr][pc] |= bit
+            counts[pr][pc] += 1
 
     def search(depth: int) -> bool:
         stats.nodes += 1
         stats.max_depth = max(stats.max_depth, depth)
         selected = None
-        best_mask = 0
         best_count = 10
         for r, c in empty:
             if board[r][c] != 0:
                 continue
-            box = (r // 3) * 3 + c // 3
-            mask = ALL_DIGITS & ~(rows[r] | columns[c] | boxes[box])
-            count = bin(mask).count("1")
+            count = counts[r][c]
             if count == 0:
                 return False
             if count < best_count:
-                selected, best_mask, best_count = (r, c, box), mask, count
+                selected, best_count = (r, c), count
         if selected is None:
             return True
-        r, c, box = selected
-        while best_mask:
+        r, c = selected
+        mask = masks[r][c]
+        while mask:
             # Lowest set bit corresponds to the smallest available digit.
-            bit = best_mask & -best_mask
-            best_mask ^= bit
-            board[r][c] = bit.bit_length()
-            rows[r] |= bit
-            columns[c] |= bit
-            boxes[box] |= bit
+            bit = mask & -mask
+            mask ^= bit
+            assign(r, c, bit)
             stats.assignments += 1
             if search(depth + 1):
                 return True
-            board[r][c] = 0
-            rows[r] &= ~bit
-            columns[c] &= ~bit
-            boxes[box] &= ~bit
+            undo(r, c)
             stats.backtracks += 1
         return False
 
