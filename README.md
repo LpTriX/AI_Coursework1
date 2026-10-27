@@ -69,8 +69,9 @@ doubles, so they do not verify native Tk rendering or actual keyboard bindings.
 The GUI adds conflict highlighting and candidate inspection; it does not
 change the backtracking algorithm or the historical benchmark values.
 
-Member IDs, HWU usernames and the video URL have not been supplied. A final
-report or ZIP must not be represented as ready until those details, the
+Member names, HWU student IDs and HWU usernames were confirmed from the
+supplied student-portal screenshots on 28 October. The video URL remains
+pending. A final report or ZIP must not be represented as ready until the
 recording and member review are complete.
 
 ### Build the review report and package

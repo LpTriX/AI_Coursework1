@@ -43,7 +43,7 @@ def main():
     contents = {name:path.read_bytes() for name,path in files.items()}
     package_readme = """# OUC Coursework 1 - Group 38 review package
 
-This is a review draft. Member IDs, HWU usernames and the video URL are pending.
+This is a review draft. Member IDs and HWU usernames are confirmed. The video URL and final review are pending.
 Do not upload this archive as a completed submission.
 
 ## Sudoku

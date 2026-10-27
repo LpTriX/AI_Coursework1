@@ -58,8 +58,8 @@ def build():
         story.append(para(title, HEADING)); story.append(para(text))
 
     page('Coursework 1: Search and Automated Planning',
-         config['group'], 'REVIEW DRAFT - incomplete member details and video link')
-    story.append(table([['Member', 'Student ID', 'HWU username']] +
+         config['group'], 'REVIEW DRAFT - video link and final review pending')
+    story.append(table([['Member', 'HWU student ID', 'HWU username']] +
                        [[m['name'], m['student_id'] or 'PENDING', m['hwu_username'] or 'PENDING']
                         for m in config['members']], [6*cm,5*cm,5*cm]))
     story.append(Spacer(1,18))
