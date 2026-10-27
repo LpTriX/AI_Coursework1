@@ -1,0 +1,43 @@
+{
+  "part1_pages": 4,
+  "part2_pages": 3,
+  "total_pages_including_cover_and_references": 9,
+  "body_font_pt": 11,
+  "margins_mm": 20,
+  "solver_and_interface_tests_passed": 23,
+  "protected_files_byte_identical": 50,
+  "saved_plan_replay": {
+    "mission1": {
+      "actions": 10,
+      "all_steps_and_goals_checked": true
+    },
+    "mission2": {
+      "actions": 20,
+      "all_steps_and_goals_checked": true
+    },
+    "mission3": {
+      "actions": 24,
+      "all_steps_and_goals_checked": true
+    }
+  },
+  "extracted_package_smoke": {
+    "mission1": {
+      "planner_succeeded": true,
+      "plan_length": 10
+    },
+    "mission2": {
+      "planner_succeeded": true,
+      "plan_length": 20
+    },
+    "mission3": {
+      "planner_succeeded": true,
+      "plan_length": 24
+    }
+  },
+  "benchmark_data_reused_without_changes": true,
+  "video_url_pending": true,
+  "pdf_sha256": "89b424b54518c80323c3bb9cbd51294e4f9836b9550c4b87a49eda4fdda72b59",
+  "checked_at": "2026-10-28T03:07:42.028249+08:00",
+  "figure_count": 3,
+  "required_pddl_files": 5
+}

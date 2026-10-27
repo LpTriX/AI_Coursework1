@@ -76,27 +76,31 @@ recording and member review are complete.
 
 ### Build the review report and package
 
-Report generation uses ReportLab for content assembly and `pdflatex` from a
-LaTeX distribution for typesetting (the Sudoku solver needs neither). The
-editable generated LaTeX project is `reports/group38-latex/main.tex`. Its
-single-column style follows the Lab4 report: centred title and authors,
-serif text, numbered sections, booktabs tables and centred page numbers.
-Coursework settings remain 11pt body text and 20 mm margins.
+The editable report is `reports/group38-latex/main.tex`. It uses 11pt body
+text, 20 mm margins and a single column. Part 1 occupies four pages and Part 2
+three pages; the cover and references are separate. The report includes the
+actual p2 interface screenshot, the saved ordering comparison, a directed
+Mission 2 map, capacity rules and step-by-step astronaut dependencies.
 
-Install the report-generation Python dependency:
+Compile the report with a LaTeX distribution providing `pdflatex`:
 
 ```sh
-python3 -m pip install reportlab
 python3 tools/build_group_report.py
 python3 tools/package_submission.py --draft
 python3 tools/package_submission.py
 ```
 
+The builder updates cover metadata from `reports/group38.json`, compiles the
+editable source without replacing it, and checks the Part 1/Part 2 page limits.
 The PDF is `output/pdf/OUC_CW_1_38_DRAFT.pdf`; the review ZIP is
-`output/F29AI CW1 OUC 38 DRAFT.zip`. Draft names and missing-field notices
-are intentional. Edit member details and the video URL in
-`reports/group38.json`; the non-draft check reports missing metadata.
-Do not upload the review ZIP as a completed submission.
+`output/F29AI CW1 OUC 38 DRAFT.zip`. The video URL remains pending. The non-draft
+package check reports missing metadata; the draft ZIP is not a completed submission.
+
+Figure PDFs are checked in, so report compilation needs no plotting library.
+To redraw them from the existing raw results and mission file, install
+Matplotlib and run `python3 tools/build_report_figures.py`. This does not rerun
+benchmarks or rewrite their measurements. The screenshot records an interactive
+run; its displayed time is separate from the five-run benchmark medians.
 
 Native Tk 9.0 widget creation, actual KeyRelease handling, conflict highlighting
 and Clear were additionally smoke-tested on 28 October. The sandbox could not

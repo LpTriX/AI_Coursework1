@@ -63,10 +63,14 @@ From this archive's root:
 
     python3 -m venv .venv
     .venv/bin/python -m pip install -r requirements-planning.txt
-    .venv/bin/python tools/validate_extension.py --output validation-output
+    .venv/bin/python -m pyperplan -s gbf -H hff "PDDL/PartA&B/domain.pddl" "PDDL/PartA&B/mission1.pddl"
+    .venv/bin/python -m pyperplan -s gbf -H hff "PDDL/PartA&B/domain.pddl" "PDDL/PartA&B/mission2.pddl"
+    .venv/bin/python -m pyperplan -s gbf -H hff PDDL/PartC/domain-ext.pddl PDDL/PartC/mission3.pddl
 
 The PDDL directory retains the required starter paths and contains five files.
 Evidence and Sudoku/results retain actual plans and measured data.
+The optional independent validation utilities are run from the full Git checkout;
+the planner commands above work directly from this extracted package.
 
 """
     contents['README.md'] = package_readme.encode()
