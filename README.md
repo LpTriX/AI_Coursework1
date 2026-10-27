@@ -1,6 +1,6 @@
 # F29AI Coursework 1 — Group Work Log
 
-This repository records task allocation, implementation progress, and validation evidence for the Sudoku solver and lunar planning tasks.
+This repository records task allocation, learning activities, implementation progress, and validation evidence. It also contains the Python Sudoku implementation with its tests and measurements.
 
 Repository documentation, code comments, program output, and future coursework materials should be written in English.
 
@@ -27,7 +27,7 @@ At the time of that handoff, Part 2C, the combined report, and video were outsta
 
 ## Start here
 
-- [Python Sudoku learning reference](reference/part1b/README.md)
+- [Python Sudoku solver](reference/part1b/README.md)
 - [A* understanding exercise](learning/A_STAR_WALKTHROUGH.md)
 - [Task allocation and schedule](docs/WORK_SPLIT.md)
 - [Progress log](docs/PROGRESS.md)

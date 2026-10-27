@@ -1,6 +1,6 @@
-# Python Sudoku Learning Reference
+# Python Sudoku Solver
 
-This directory contains a Sudoku solver, input handling, correctness tests, and repeatable measurements.
+Part 1B implementation: input validation, MRV backtracking with incremental candidate sets, a command-line interface, and search statistics.
 
 Requirements: Python 3.9 or later. Only the standard library is used; there are no Sudoku, CSP, or constraint-solver dependencies.
 
@@ -27,12 +27,12 @@ python3 -m unittest reference.part1b.test_solver reference.part1b.test_benchmark
 
 1. `read_puzzle` / `parse_puzzle`: convert files and text into a board.
 2. `validate_board`: check shape, values, and initial conflicts.
-3. `solve`: copy the input and build bit masks for digits used in each row, column, and box.
-4. The nested `search`: compute legal digits for each empty cell, reject a state with an empty candidate set, and otherwise select a cell using MRV.
-5. Try a candidate and recurse. On failure, undo the board assignment and all three mask updates before trying another candidate.
+3. `solve`: copy the input, build the static peer lists, and initialise one candidate bitmask per empty cell from the givens.
+4. The nested `search`: read the stored candidate counts, reject a state with an empty candidate set, and otherwise select a cell using MRV.
+5. Try a candidate and recurse. Assigning a digit clears it from the masks of the 20 peers; on failure, undo restores exactly the peers that were cleared before trying the next candidate.
 6. `main`: display a solution or no-solution message and optional statistics.
 
-Candidate sets are recomputed at each search call. The reference does not maintain an AC-3 queue or persistent forward-checking domain tables. Do not describe algorithms that are absent from the implementation.
+Candidate sets are maintained incrementally: each assignment updates only the 20 peers of the assigned cell. There is no AC-3 queue or arc-consistency pass beyond this local propagation. Do not describe algorithms that are absent from the implementation.
 
 ## Measurement definitions
 
@@ -72,7 +72,7 @@ Optionally provide one or more TXT/CSV input paths before `--repeats`. The defau
 
 The default output overwrites `results/benchmark.json`. Use `--output` with a different filename to retain separate experiments. Raw records include each run's counters and time, input/code SHA-256 hashes, the code commit, whether relevant code is uncommitted, and environment details. Timing excludes result verification. Each returned completion is separately checked using sets for rows, columns, boxes, and original givens.
 
-Saved evidence is available in the [measurement summary](results/README.md) and [15 raw run records](results/benchmark.json). These records describe the measured version identified in the raw data.
+Saved evidence is available in the [measurement summary](results/README.md) and [15 raw run records](results/benchmark.json). These are practice measurements recorded on the earlier solver version (the measured commit is in the raw data); the current solver keeps the same search counts.
 
 A no-solution record is the current algorithm's result, not a proof obtained from a second solver. The supplied counterexample can be checked manually: its first row needs 1, but its first column already contains 1, leaving the first cell with no legal value.
 

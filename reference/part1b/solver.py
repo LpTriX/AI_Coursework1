@@ -1,7 +1,4 @@
-"""Sudoku solver with MRV backtracking.
-
-Command-line input, readable output, and search statistics.
-"""
+"""Sudoku solver: MRV backtracking with incremental candidate masks."""
 
 from __future__ import annotations
 

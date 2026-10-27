@@ -1,1 +1,1 @@
-"""Sudoku implementation, examples, and measurements."""
+"""Coursework reference implementations."""

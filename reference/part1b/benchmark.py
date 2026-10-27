@@ -85,7 +85,7 @@ def run_benchmark(paths: list[Path], repeats: int) -> dict:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Measure Sudoku solver performance.")
+    parser = argparse.ArgumentParser(description="Measure the Sudoku solver.")
     parser.add_argument("puzzles", nargs="*", type=Path)
     parser.add_argument("--repeats", type=int, default=5)
     parser.add_argument("--output", type=Path, default=HERE / "results" / "benchmark.json")

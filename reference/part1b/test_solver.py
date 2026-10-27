@@ -1,4 +1,4 @@
-"""Semantic checks for Sudoku solving."""
+"""Semantic checks for the Sudoku solver."""
 
 import tempfile
 import subprocess

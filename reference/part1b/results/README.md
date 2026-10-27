@@ -1,6 +1,6 @@
 # Actual Measurements of the Reference Implementation
 
-These records document local runs of the Sudoku solver. The raw records identify the measured version and environment.
+These records document local runs of the Sudoku solver on the three practice inputs.
 
 Raw data: [benchmark.json](benchmark.json). The JSON is authoritative; the table presents median times rounded to the nearest microsecond.
 
@@ -21,4 +21,4 @@ Each input produced the same outcome and search counters across all five repetit
 
 The unsatisfiable example can be checked manually. The first row requires 1, but the first column already contains 1. The first cell therefore has no legal value. This example covers an immediate contradiction, not the performance of every unsatisfiable puzzle.
 
-These three examples have no certified difficulty ratings or verified external provenance. Other search methods were not benchmarked. These results do not establish performance on other inputs or superiority to untested alternatives. For further experiments, select puzzles with traceable sources and retain measurements of the tested code version.
+These three examples have no certified difficulty ratings or verified external provenance. Other search methods were not benchmarked. These results do not establish performance on other inputs or superiority to untested alternatives. For the report, use puzzles with traceable sources and re-measure the current committed code if exact timings are needed.
