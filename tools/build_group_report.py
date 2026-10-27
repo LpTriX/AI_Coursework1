@@ -1,5 +1,13 @@
-"""Build the Group 38 review PDF. Requires reportlab; see README for provenance."""
+"""Build the Group 38 review PDF in the Lab4 single-column LaTeX style.
+
+Requires ReportLab for content assembly and pdflatex for typesetting.
+"""
 import json
+import re
+import shutil
+import subprocess
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 from xml.sax.saxutils import escape
 from reportlab.lib import colors
@@ -243,15 +251,119 @@ def build():
          'and measurement conditions. The reference entries were retained from '
          'the existing contribution draft; no new access date is asserted.')
 
-    OUT.parent.mkdir(parents=True,exist_ok=True)
-    doc=SimpleDocTemplate(str(OUT),pagesize=A4,rightMargin=2*cm,leftMargin=2*cm,
-                          topMargin=2*cm,bottomMargin=2*cm,title='OUC CW 1 38 - review draft',
-                          author='Pinxin Liu and Chengtian Gong')
-    def footer(canvas, doc):
-        canvas.setFont('Helvetica',9)
-        canvas.drawString(2*cm,1.1*cm,'OUC CW 1 38 | Review draft')
-        canvas.drawRightString(A4[0]-2*cm,1.1*cm,str(doc.page))
-    doc.build(story,onFirstPage=footer,onLaterPages=footer)
+    write_lab_style(story, config)
     print(OUT)
+
+
+def tex_escape(text):
+    symbols = {'\\': r'\textbackslash{}', '&': r'\&', '%': r'\%', '$': r'\$',
+               '#': r'\#', '_': r'\_', '{': r'\{', '}': r'\}',
+               '~': r'\textasciitilde{}', '^': r'\textasciicircum{}'}
+    formulas = {'X(r,c)': r'$X_{r,c}$', '{1,...,9}': r'$\{1,\ldots,9\}$',
+                '1+9+...+9^m': r'$1+9+\cdots+9^m$', 'O(9^m)': r'$O(9^m)$',
+                '9^m': r'$9^m$', '9^k': r'$9^k$', 'g+h=m': r'$g+h=m$'}
+    token_pattern = '|'.join(re.escape(token) for token in sorted(formulas,key=len,reverse=True))
+    parts = re.split(r'(https?://\S+|' + token_pattern + ')', text)
+    return ''.join(r'\url{'+part+'}' if part.startswith(('https://','http://'))
+                   else formulas[part] if part in formulas
+                   else ''.join(symbols.get(c,c) for c in part) for part in parts)
+
+
+def write_lab_style(story, config):
+    """Retain the report text while applying the single-column Lab4 style."""
+    project = ROOT/'reports/group38-latex'
+    lines = [r"""\documentclass[11pt,a4paper]{article}
+\usepackage[a4paper,left=20mm,right=20mm,top=20mm,bottom=20mm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,booktabs,array,tabularx,fancyhdr}
+\usepackage[british]{babel}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={OUC CW 1 38 - review draft},pdfauthor={Pinxin Liu and Chengtian Gong}}
+\usepackage{caption,float,microtype}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\captionsetup{font=normalsize,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{.45em}
+\setlength{\headheight}{14pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\arraystretch}{1.18}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[C]{\small F29AI Coursework 1\quad OUC Group 38}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\title{Coursework 1 Report\\Search and Automated Planning}
+"""]
+    names = r'\quad '.join(tex_escape(member['name']) for member in config['members'])
+    date = datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%d %B %Y')
+    lines += [r'\author{'+names+r'\\OUC CW 1 38}',r'\date{Report date: '+date+'}',
+              r'\begin{document}',r'\pagenumbering{roman}',r'\begin{titlepage}',r'\maketitle\thispagestyle{plain}']
+    cover = True
+    skip_group = True
+    table_number = 0
+    for item in story:
+        if isinstance(item, PageBreak):
+            if cover:
+                lines.append(r'\end{titlepage}\pagenumbering{arabic}')
+                cover = False
+            else:
+                lines.append(r'\clearpage')
+            continue
+        if isinstance(item, Spacer):
+            lines.append(r'\medskip')
+            continue
+        if isinstance(item, Table):
+            table_number += 1
+            rows = item._cellvalues
+            spec = '@{}Y'+'r'*(len(rows[0])-1)+'@{}'
+            caption = 'Group details' if cover else 'Saved Sudoku measurements (medians over five runs).'
+            lines += [r'\begin{table}[H]\centering',r'\caption{'+caption+'}',
+                      r'\begin{tabularx}{\linewidth}{'+spec+'}',r'\toprule']
+            for i,row in enumerate(rows):
+                values = [tex_escape(cell.getPlainText()) for cell in row]
+                if i==0: values = [r'\textbf{'+v+'}' for v in values]
+                lines.append(' & '.join(values)+r'\\')
+                if i==0: lines.append(r'\midrule')
+            lines += [r'\bottomrule',r'\end{tabularx}',r'\end{table}']
+            continue
+        if not isinstance(item, Paragraph):
+            continue
+        text = item.getPlainText()
+        if cover and item.style.name=='title':
+            continue
+        if cover and skip_group and text==config['group']:
+            skip_group = False
+            continue
+        if item.style.name=='title':
+            headings = {
+                'Part 1A: Sudoku as a CSP': r'\section{Part 1A: Sudoku as a CSP}',
+                'Part 1B: Method and implementation': r'\section{Part 1B: Sudoku solver}\subsection{Method and implementation}',
+                'Part 1B: Evaluation and A* analysis': r'\subsection{Evaluation and theoretical A* analysis}',
+                'Part 2A/B: Domain and mission design': r'\section{Part 2A/B: Domain and mission design}',
+                'Part 2C: Astronaut extension': r'\section{Part 2C: Astronaut extension}',
+                'References': r'\section*{References}'}
+            lines.append(headings[text])
+        elif item.style.name=='heading':
+            command = r'\subsection*' if cover else r'\subsubsection'
+            if text in ('Mission configuration','Base validation','How the extension changes the plan','Extension validation and limits'):
+                command = r'\subsection'
+            lines.append(command+'{'+tex_escape(text)+'}')
+        elif text.startswith('REVIEW DRAFT'):
+            lines.append(r'\begin{center}\textbf{'+tex_escape(text)+r'}\end{center}')
+        else:
+            lines += [tex_escape(text),'']
+    lines.append(r'\end{document}')
+    source = project/'main.tex'
+    source.write_text('\n'.join(lines)+'\n')
+    build_dir = ROOT/'tmp/pdfs/latex-build'
+    build_dir.mkdir(parents=True,exist_ok=True)
+    for _ in range(2):
+        completed = subprocess.run(['pdflatex','-interaction=nonstopmode','-halt-on-error',
+                                    '-output-directory',str(build_dir),str(source)],
+                                   cwd=project,text=True,capture_output=True)
+        if completed.returncode:
+            raise RuntimeError(completed.stdout[-3500:])
+    OUT.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(build_dir/'main.pdf',OUT)
 
 if __name__ == '__main__': build()

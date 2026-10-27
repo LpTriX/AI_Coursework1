@@ -22,7 +22,9 @@
   "source_sha256": {
     "reference/part1b/gui.py": "6d7f17005271ef78fcfedbff7001cd98d1bf52fa93b5e9d7b9e8df1ef77c4337",
     "reference/part1b/solver.py": "7eed993d133f22a47d3858794d5d196a2c0fce9b7663c5f01d6beb024540d281",
-    "tools/build_group_report.py": "07b4a7353e6cd8ea96ca96cd14a505765caa71d09e795aa412a04e948ae7991e",
+    "tools/build_group_report.py": "5e331d02996528d7b26f43497650cc73c96fe0604201b0d561f9277e9128d6f4",
     "tools/package_submission.py": "2fd0a6beccf9ba0e1d8323f3fbd383ff3496f3a94f196735c3d7528d1162e808"
-  }
+  },
+  "report_style": "Lab4 single-column LaTeX: centred title/authors, serif text, numbered sections, booktabs tables, centred page numbers",
+  "report_compilation": "pdflatex twice and desktop compiler both succeeded; no overfull-box warnings"
 }

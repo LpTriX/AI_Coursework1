@@ -75,7 +75,14 @@ recording and member review are complete.
 
 ### Build the review report and package
 
-Install ReportLab for report generation (the Sudoku solver does not require it):
+Report generation uses ReportLab for content assembly and `pdflatex` from a
+LaTeX distribution for typesetting (the Sudoku solver needs neither). The
+editable generated LaTeX project is `reports/group38-latex/main.tex`. Its
+single-column style follows the Lab4 report: centred title and authors,
+serif text, numbered sections, booktabs tables and centred page numbers.
+Coursework settings remain 11pt body text and 20 mm margins.
+
+Install the report-generation Python dependency:
 
 ```sh
 python3 -m pip install reportlab
