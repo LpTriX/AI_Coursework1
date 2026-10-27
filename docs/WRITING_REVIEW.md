@@ -4,7 +4,7 @@ Review date: 2026-10-25.
 
 ## Scope
 
-No report manuscript or author writing sample is present in the repository. This review covers the existing measurement summary and A* learning exercise. The target voice is concise technical English suitable for undergraduate coursework. 
+No report manuscript or author writing sample is present in the repository. This review covers the existing measurement summary and A* learning exercise. The target voice is concise technical English suitable for undergraduate coursework.
 
 ## Audit before revision
 
