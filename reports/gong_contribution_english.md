@@ -28,7 +28,7 @@ The `lunar` domain uses only `:strips` and `:typing`. The types are `rover`, `la
 
 ### Capacity and completion
 
-`memory-free` is a single token shared by images and scans. Capturing either kind of data consumes it. Transmitting held data restores it and records `image-saved` or `scan-saved` at the receiving lander. Transmission checks ownership only: the rover does not have to be at the lander or to have visited it before. The source waypoint records where the data came from; the current waypoint records where the rover is now. So acquiring data on its own never satisfies a saved-data goal.
+`memory-free` is a single token shared by images and scans. Capturing either kind of data consumes it. Transmitting held data restores it and records `image-saved` or `scan-saved` at the receiving lander. Transmission requires ownership, the rover’s current location and the corresponding held data: the rover does not have to be at the lander or to have visited it before. The source waypoint records where the data came from; the current waypoint records where the rover is now. So acquiring data on its own never satisfies a saved-data goal.
 
 Samples use a separate `sample-free` token, so a rover can carry one sample and one unsent data item at the same time. Collection consumes the token. `store-sample` requires the rover and its own lander to share a waypoint; it restores the rover's sample token, consumes the lander's `storage-free` token, and records the sample's origin in `sample-stored`. No action restores lander storage, so each lander stores at most one sample. The specification puts no limit on the sample stock at a waypoint, so the domain adds no source-exhaustion rule. We also add no sample-type or data-size distinctions.
 

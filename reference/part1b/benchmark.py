@@ -2,9 +2,9 @@
 
 For each puzzle the solver runs `repeats` times in one process. Raw per-run
 records (time and search counters) are written as JSON; the console prints
-a summary table. Timing starts after the puzzle has been read and validated
-and stops when the search returns; independent solution verification and
-printing are excluded. Run from the folder root:
+a summary table. Timing measures the complete solve() call, including its validation and
+board copy. File reading, earlier input validation, independent verification
+and printing are excluded. Run from the folder root:
 
     python3 benchmark.py --order mrv        # writes results/benchmark.json
     python3 benchmark.py --order row-major --output results/benchmark_rowmajor.json
@@ -92,7 +92,7 @@ def run_benchmark(paths, repeats, cell_order):
             "machine": platform.machine(),
         },
         "solver_sha256": hashlib.sha256((HERE / "solver.py").read_bytes()).hexdigest(),
-        "timing_scope": "Search only; excludes file reading, input validation, printing and verification.",
+        "timing_scope": "Complete solve() call, including its validation and board copy; excludes file reading, earlier read_puzzle validation, printing and independent verification.",
         "notes": [
             "Puzzles are constructed locally (tools/make_puzzles.py); no external difficulty ratings are claimed.",
             "Every solved run is independently checked; uniqueness was verified with count_solutions.",

@@ -56,6 +56,11 @@ checking rejects malformed files and conflicting givens before any search
 starts. A separate `count_solutions` routine enumerates completions up to a
 limit of two, which is all a uniqueness check needs.
 
+The interface highlights cells involved in repeated row, column or box
+values. Selecting an empty cell shows its legal candidates under the current
+partial assignment; these do not guarantee a complete solution. Neither
+interface feature changes the search algorithm.
+
 ## 3. Correctness testing
 
 Seventeen `unittest` cases (saved output in `test_results.txt`, all
@@ -85,9 +90,9 @@ these self-generated files.
 ## 4. Experiments
 
 **Setup.** CPython 3.9.6, macOS (Darwin 27.0.0, arm64), five repetitions
-per puzzle per ordering, no warm-up. Timing covers the search only — file
-reading, input validation, printing, and independent verification are
-excluded. Raw per-run records with input and solver SHA-256 hashes are in
+per puzzle per ordering, no warm-up. Timing covers the complete `solve()` call, including its validation and
+board copy. File reading, earlier validation, printing and independent
+completion verification are excluded. Raw per-run records with input and solver SHA-256 hashes are in
 `results/benchmark.json` and `results/benchmark_rowmajor.json`.
 
 **Counter definitions.** `nodes`: search invocations (root, child states,
@@ -157,7 +162,8 @@ per-node cost.
 **Arc consistency (AC-3).** Enforce binary consistency across all
 row/column/box pairs after each assignment. Stronger pruning, heavier
 per-node work; on hard puzzles AC-3 often pays, on easy ones (like our p1)
-it would lose to plain MRV the same way MRV lost to row-major there.
+its overhead might outweigh its pruning benefit. AC-3 was not measured
+here, so this remains a hypothesis.
 
 **Exact cover / dancing links (DLX).** Sudoku is an exact-cover problem
 (cells x digits x units), and DLX is the standard fast method, especially
@@ -197,13 +203,13 @@ a **constant** for every node in the tree. The heuristic is correct but
 gives the search no gradient at all: f cannot separate promising states
 from dead ends, so the order in which A* expands nodes is set entirely by
 its tie-breaking rule. A first-in-first-out tie-break degenerates to
-breadth-first behaviour and keeps every partial board on the open list —
-memory exponential in the empty cells (up to 9^m states) — while
+breadth-first behaviour and retains the unexpanded search frontier.
+That frontier can require exponential memory in the worst case, while
 depth-first backtracking keeps only the path it is currently on. A
 last-in-first-out rule would avoid that memory blow-up, but then the
 search is depth-first anyway and A* contributes nothing beyond plain DFS.
 A stronger admissible heuristic is hard to find because Sudoku's
 constraints interact globally; that is exactly the structure MRV exploits
 cheaply. We therefore conclude
-that DFS + MRV, not A*, is the right search for Sudoku, and the
-measurements of Section 4 support the choice on concrete inputs.
+that DFS + MRV is a reasonable choice for this implementation. Section 4
+compares MRV with row-major backtracking; neither was measured against A*.

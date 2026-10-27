@@ -22,3 +22,8 @@ target/
 /materials/
 /submission/
 /recordings/
+
+# Generated previews and Python crash dumps
+/tmp/
+core
+core.*

@@ -10,9 +10,10 @@ the nearest microsecond.
 - Five repetitions per puzzle, per ordering, in one process; no warm-up run.
 - Every run of every puzzle produced the same result and the same search
   counters (`result_and_counters_identical: true`); timings varied.
-- Timing starts after the puzzle has been read and validated and stops when
-  the search returns. Independent solution verification, printing and file
-  reading are excluded.
+- Timing covers the complete `solve()` call, including its validation and
+  board copy. File reading, earlier validation, independent verification and
+  printing are excluded. This description was corrected on 28 October;
+  the original measurements are unchanged.
 - Solver file measured: SHA-256 `7eed993d133f22a47d3858794d5d196a2c0fce9b7663c5f01d6beb024540d281`.
 
 ## Counter definitions

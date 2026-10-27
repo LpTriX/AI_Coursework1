@@ -99,13 +99,13 @@ lander has one fixed site.
 
 `memory-free` is a single token shared by images and scans. Capturing either kind
 of data consumes it. Transmitting held data restores it and records `image-saved`
-or `scan-saved` at the receiving lander. Transmission checks ownership only: the
+or `scan-saved` at the receiving lander. Transmission requires ownership, the rover’s current location and the corresponding held data: the
 rover does not have to be at the lander or to have visited it before. The source
 waypoint records where the data came from; the current waypoint records where the
 rover is now. So acquiring data on its own never satisfies a saved-data goal.
 
 `memory-free` 是图像和扫描共用的一个令牌。获取任意一种数据都会消耗它；把手里数据发出去
-会恢复它，并在接收着陆器记录 `image-saved` 或 `scan-saved`。发送只检查归属——车不必在
+会恢复它，并在接收着陆器记录 `image-saved` 或 `scan-saved`。发送还要求当前位置和已持有的对应数据，并检查归属——车不必在
 着陆器旁边，也不必之前去过。source 记录数据在哪采的，current 记录车现在在哪。所以光获取
 数据不能满足保存目标。
 

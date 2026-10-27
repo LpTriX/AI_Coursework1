@@ -1,0 +1,28 @@
+{
+  "checked_at": "2026-10-28T00:38:34.817505+08:00",
+  "solver_tests": 17,
+  "interface_state_tests": 6,
+  "extracted_package_tests_passed": true,
+  "native_tk_smoke_test": "Tk 9.0 on bundled Python 3.12 outside sandbox: window creation, KeyRelease, highlight and Clear passed",
+  "native_system_python_window_startup": "failed; use a working Python/Tk installation",
+  "pdf_pages": 7,
+  "part1_pages": 3,
+  "part2_pages": 2,
+  "font_points": 11,
+  "margin_cm": 2,
+  "draft_zip_integrity": "passed",
+  "required_pddl_files": 5,
+  "video_files_in_zip": 0,
+  "remaining": [
+    "student IDs",
+    "HWU usernames",
+    "video URL",
+    "member review"
+  ],
+  "source_sha256": {
+    "reference/part1b/gui.py": "6d7f17005271ef78fcfedbff7001cd98d1bf52fa93b5e9d7b9e8df1ef77c4337",
+    "reference/part1b/solver.py": "7eed993d133f22a47d3858794d5d196a2c0fce9b7663c5f01d6beb024540d281",
+    "tools/build_group_report.py": "07b4a7353e6cd8ea96ca96cd14a505765caa71d09e795aa412a04e948ae7991e",
+    "tools/package_submission.py": "2fd0a6beccf9ba0e1d8323f3fbd383ff3496f3a94f196735c3d7528d1162e808"
+  }
+}

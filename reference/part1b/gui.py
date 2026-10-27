@@ -18,12 +18,32 @@ import tkinter as tk
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
-from solver import PuzzleError, read_puzzle, solve, validate_board
+from solver import PuzzleError, candidates, read_puzzle, solve, validate_board
 
 SIZE = 9
 BOX = 3
 GIVEN_COLOR = "black"
 SOLVED_COLOR = "#1a5fb4"
+CONFLICT_COLOR = "#ffe1e1"
+
+
+def conflict_cells(board):
+    """Return every filled cell participating in a repeated unit value."""
+    units = [[(r, c) for c in range(SIZE)] for r in range(SIZE)]
+    units += [[(r, c) for r in range(SIZE)] for c in range(SIZE)]
+    units += [[(r, c) for r in range(br, br + BOX)
+               for c in range(bc, bc + BOX)]
+              for br in range(0, SIZE, BOX) for bc in range(0, SIZE, BOX)]
+    conflicts = set()
+    for unit in units:
+        positions = {}
+        for r, c in unit:
+            if board[r][c]:
+                positions.setdefault(board[r][c], []).append((r, c))
+        for group in positions.values():
+            if len(group) > 1:
+                conflicts.update(group)
+    return conflicts
 
 
 class SudokuApp:
@@ -62,6 +82,8 @@ class SudokuApp:
                         cell.bind("<Left>", lambda event, r=r, c=c: self._move(r, c, 0, -1))
                         cell.bind("<Right>", lambda event, r=r, c=c: self._move(r, c, 0, 1))
                         cell.bind("<<Paste>>", lambda event: "break")
+                        cell.bind("<KeyRelease>", lambda event, r=r, c=c: self._on_edit(r, c))
+                        cell.bind("<FocusIn>", lambda event, r=r, c=c: self._inspect_cell(r, c))
                         self.cells[r][c] = cell
 
     def _build_controls(self):
@@ -106,7 +128,7 @@ class SudokuApp:
                 text = self.cells[r][c].get().strip()
                 if text == "":
                     row.append(0)
-                elif text in "123456789":
+                elif len(text) == 1 and text in "123456789":
                     row.append(int(text))
                 else:
                     raise PuzzleError(
@@ -114,6 +136,38 @@ class SudokuApp:
                         f"enter a digit 1-9 or leave it blank.")
             board.append(row)
         return validate_board(board)
+
+    def _current_values(self):
+        return [[int(cell.get()) if len(cell.get()) == 1 and
+                 cell.get() in "123456789" else 0 for cell in row]
+                for row in self.cells]
+
+    def _mark_conflicts(self):
+        conflicts = conflict_cells(self._current_values())
+        for r in range(SIZE):
+            for c in range(SIZE):
+                self.cells[r][c].config(
+                    background=CONFLICT_COLOR if (r, c) in conflicts else "white")
+        return conflicts
+
+    def _inspect_cell(self, r, c):
+        conflicts = self._mark_conflicts()
+        if conflicts:
+            self.status.config(text=f"Conflicting digits in {len(conflicts)} cells (highlighted red).")
+            return
+        board = self._current_values()
+        if board[r][c]:
+            text = f"Row {r + 1}, column {c + 1}: {board[r][c]}."
+        else:
+            legal = sorted(candidates(board, r, c))
+            text = f"Row {r + 1}, column {c + 1}: candidates " + (
+                ", ".join(map(str, legal)) if legal else "none (dead end)") + "."
+        self.status.config(text=text)
+
+    def _on_edit(self, r, c):
+        self.cells[r][c].config(foreground=GIVEN_COLOR)
+        self._refresh_buttons()
+        self._inspect_cell(r, c)
 
     def _write_cell(self, cell, text, color):
         """Write text into an entry, bypassing the key validation.
@@ -134,6 +188,7 @@ class SudokuApp:
         for r in range(SIZE):
             for c in range(SIZE):
                 self._write_cell(self.cells[r][c], str(board[r][c]) if board[r][c] else "", color)
+        self._mark_conflicts()
 
     def _fill_solution(self, given, solution):
         """Show the completed board: user digits black, solver digits blue."""
@@ -172,6 +227,7 @@ class SudokuApp:
         self._set_status(f"Loaded {Path(path).name}: {givens} givens. Press Solve.")
 
     def solve_puzzle(self):
+        self._mark_conflicts()
         try:
             given = self._read_grid()
         except PuzzleError as error:
@@ -184,8 +240,7 @@ class SudokuApp:
         result = solve(given)
         elapsed = time.perf_counter() - start
         if result.solution is None:
-            messagebox.showinfo("Sudoku", "No solution: every candidate assignment was "
-                                          "explored without completing the board.")
+            messagebox.showinfo("Sudoku", "No solution exists for these digits.")
             self._set_status(f"No solution ({result.stats.nodes} nodes).")
             return
         self._fill_solution(given, result.solution)
@@ -206,6 +261,7 @@ class SudokuApp:
             for c in range(SIZE):
                 self._write_cell(self.cells[r][c], "", GIVEN_COLOR)
         self.original = None
+        self._mark_conflicts()
         self._set_status("Cleared. Load a puzzle or type digits.")
 
 

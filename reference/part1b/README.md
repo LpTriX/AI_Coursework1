@@ -17,7 +17,8 @@ no Sudoku, CSP or constraint-solver library is used.
 | `solver.py` | the solver: parsing, validation, MRV backtracking, a CLI, and a completion counter |
 | `test_solver.py` | 17 correctness tests with an independent set-based oracle |
 | `benchmark.py` | repeatable timing and counter measurements, raw JSON output |
-| `gui.py` | Tkinter GUI: 9x9 board with Load / Solve / Reset / Clear (standard library only) |
+| `gui.py` | Tkinter board, four controls, live conflict highlighting and candidate inspection |
+| `test_gui.py` | Six interface-state checks without a display server |
 | `puzzles/` | five practice puzzles, all constructed locally; see [puzzles/README.md](puzzles/README.md) |
 | `results/` | raw benchmark records and the summary; see [results/README.md](results/README.md) |
 | `tools/make_puzzles.py` | regenerates every puzzle and verifies uniqueness |
@@ -55,7 +56,7 @@ tr ' ' ',' < puzzles/p1.txt > /tmp/p1.csv
 python3 solver.py /tmp/p1.csv --csv
 
 # run all correctness tests (saved output kept in test_results.txt)
-python3 -m unittest -v test_solver
+python3 -m unittest -v test_solver test_gui
 
 # record measurements (5 runs per puzzle, raw JSON in results/)
 python3 benchmark.py --order mrv
@@ -89,3 +90,12 @@ digit is a dead end; exhausting the tree means the puzzle has no solution.
 - [x] GUI extension (optional, for extra marks): `gui.py`
 - [ ] Coordinate the page count with Part 1A (1A + 1B together: 4 pages maximum)
 - [ ] Final polish of the report text before submission
+
+## Interface details
+
+Run `python3 gui.py` with a Python installation that includes Tk. Conflicts
+are highlighted red; select an empty cell to inspect its legal candidates.
+Clear empties the board; Reset restores the most recently loaded puzzle.
+Candidates indicate local consistency, not guaranteed completion.
+Search runs on the interface thread: expensive inputs can temporarily
+make the window unresponsive.

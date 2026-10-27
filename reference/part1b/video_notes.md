@@ -47,8 +47,8 @@ parts. Every item has a runnable command you can show live.
 - A* in one breath: h = number of empty cells is admissible and
   consistent, but f = g + h = 81 - givens is constant for every state,
   so the heuristic gives no guidance — expansion order falls to the
-  tie-break rule, and the usual first-in-first-out rule stores every
-  partial board (exponential memory) while DFS keeps one path. That is
+  tie-break rule. First-in-first-out ordering retains the unexpanded
+  frontier, which can require exponential memory, while DFS keeps one path. That is
   why the submitted method is DFS + MRV, not A*.
 
 ## 5. Close (15 seconds)

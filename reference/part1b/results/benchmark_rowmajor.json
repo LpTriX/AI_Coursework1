@@ -10,11 +10,12 @@
     "machine": "arm64"
   },
   "solver_sha256": "7eed993d133f22a47d3858794d5d196a2c0fce9b7663c5f01d6beb024540d281",
-  "timing_scope": "Search only; excludes file reading, input validation, printing and verification.",
+  "timing_scope": "Complete solve() call, including its validation and board copy; excludes file reading, earlier read_puzzle validation, printing and independent verification.",
   "notes": [
     "Puzzles are constructed locally (tools/make_puzzles.py); no external difficulty ratings are claimed.",
     "Every solved run is independently checked; uniqueness was verified with count_solutions.",
-    "A no-solution return is recorded, not independently proved with a second solver."
+    "A no-solution return is recorded, not independently proved with a second solver.",
+    "Timing-scope description corrected on 2026-10-28; original measurements are unchanged."
   ],
   "cases": [
     {
