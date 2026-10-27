@@ -33,3 +33,16 @@
 This log records the Part 2C implementation separately from the collaborator's
 base-model history. It does not claim that the combined report, video, or final
 submission package is complete.
+
+## 2026-10-27: Group-work review
+
+- Reran all 21 Sudoku tests and the complete three-mission extension validator.
+  All checks passed. The fresh planning summary is stored separately under
+  `evidence/review-2026-10-27/`.
+- Reviewed the implementation and prose without finding a new functional defect
+  in the tested scope. No solver or PDDL code change was needed.
+- Added `docs/FINAL_REVIEW.md`, a separate English version of the collaborator's
+  contribution, and plainer Part 2C instructions. Preserved original attribution,
+  existing references, formal definitions, and numerical results.
+- The report still needs its missing sections and cover details. The video,
+  final package, and merge into `main` are also outstanding.

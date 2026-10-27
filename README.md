@@ -20,7 +20,9 @@ The combined report, video, and final submission package are still outstanding.
 Chengtian Gong's base domain and Mission 1/2 are implemented and locally validated.
 Start with [the implemented interface and run instructions](docs/PDDL_HANDOFF.md),
 [actual validation evidence](evidence/base-pddl/README.md), and
-[the bilingual contribution draft](reports/gong_contribution_bilingual.md).
+[the English contribution draft](reports/gong_contribution_english.md).
+The [original bilingual draft](reports/gong_contribution_bilingual.md) is retained
+for comparison.
 At the time of that handoff, Part 2C, the combined report, and video were outstanding.
 
 ## Start here
@@ -30,6 +32,7 @@ At the time of that handoff, Part 2C, the combined report, and video were outsta
 - [Task allocation and schedule](docs/WORK_SPLIT.md)
 - [Progress log](docs/PROGRESS.md)
 - [English writing and evidence review](docs/WRITING_REVIEW.md)
+- [Current technical and writing review](docs/FINAL_REVIEW.md)
 - [Part 1B learning and implementation roadmap](learning/PART1B.md)
 - [Sudoku experiment log template](learning/EXPERIMENTS.md)
 - [Part 2C learning and validation roadmap](learning/PART2C.md)

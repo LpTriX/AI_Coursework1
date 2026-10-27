@@ -1,0 +1,100 @@
+{
+  "planner": "Pyperplan 2.1",
+  "search": "greedy best-first",
+  "heuristic": "hFF",
+  "python": "3.9.6",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "run_at_asia_shanghai": "2026-10-27T11:18:56.752632+08:00",
+  "base_handoff_commit": "0efdb054d9ec37bed51ce26e7a5fa6e24530c471",
+  "implementation_commit": "96f1e93fd4dff0084ff2c8a663f6b631abc80c09",
+  "mission_setup": {
+    "base_initial_facts_unchanged": true,
+    "six_goals_unchanged": true,
+    "required_astronaut_setup_verified": true,
+    "generic_action_arguments": true,
+    "base_source_hashes_match_handoff": true
+  },
+  "semantic_checks": {
+    "coherent_states": 23,
+    "action_instances_checked": 24380,
+    "permitted_with_correct_effects": 180,
+    "forbidden": 24200,
+    "coverage": [
+      "deployment and storage require the correct docking bay",
+      "both transmission actions require the correct control room",
+      "astronaut and room must belong to the receiving lander",
+      "co-located landers cannot exchange astronauts or rover ownership",
+      "cross-lander astronaut movement is forbidden even with an adjacency edge",
+      "old astronaut location is removed on movement",
+      "base memory, sample, storage, movement and acquisition restrictions retained",
+      "wireless transmission allows current waypoint to differ from source and lander",
+      "synthetic object identifiers instead of mission-specific constants"
+    ]
+  },
+  "missions": {
+    "mission1": {
+      "plan_length": 10,
+      "elapsed_seconds_parse_ground_search": 0.004252332999999997,
+      "all_goals_verified": true,
+      "all_steps_checked_against_independent_rules": true,
+      "action_counts": {
+        "capture-image": 1,
+        "collect-sample": 1,
+        "deploy": 1,
+        "move": 3,
+        "perform-scan": 1,
+        "store-sample": 1,
+        "transmit-image": 1,
+        "transmit-scan": 1
+      }
+    },
+    "mission2": {
+      "plan_length": 20,
+      "elapsed_seconds_parse_ground_search": 0.7474757910000001,
+      "all_goals_verified": true,
+      "all_steps_checked_against_independent_rules": true,
+      "action_counts": {
+        "capture-image": 2,
+        "collect-sample": 2,
+        "deploy": 1,
+        "move": 7,
+        "perform-scan": 2,
+        "store-sample": 2,
+        "transmit-image": 2,
+        "transmit-scan": 2
+      }
+    },
+    "mission3": {
+      "plan_length": 24,
+      "elapsed_seconds_parse_ground_search": 3.740848917,
+      "all_goals_verified": true,
+      "all_steps_checked_against_independent_rules": true,
+      "action_counts": {
+        "capture-image": 2,
+        "collect-sample": 2,
+        "deploy": 1,
+        "move": 7,
+        "move-astronaut": 4,
+        "perform-scan": 2,
+        "store-sample": 2,
+        "transmit-image": 2,
+        "transmit-scan": 2
+      },
+      "both_astronauts_move": true,
+      "all_gated_actions_have_matching_astronaut_and_room": true
+    }
+  },
+  "sha256": {
+    "PDDL/PartA&B/domain.pddl": "b5d77bc818f8280599c2aff928429baf8781811b4fa05f9d6e6de30aa0befbf5",
+    "PDDL/PartA&B/mission1.pddl": "6180437254c3e5447c47ab71ba87bfd6656ae3dd766ef1c31f4994f1b1592757",
+    "PDDL/PartA&B/mission2.pddl": "31ff0a50715cc3ee64340e5669450624bc7fc660e4837477123ddd0be5dc9fdf",
+    "PDDL/PartC/domain-ext.pddl": "f4b6356fdc1d3b82c0d90f663709d0806f112494689a08142e05e07bab7dc30d",
+    "PDDL/PartC/mission3.pddl": "791a47b2bd3d0fef9e48f62954d32f534b360c0d4c82db0921e1d4d08ecb5378",
+    "tools/validate_extension.py": "2c26d4e879111817f87096abc21f7616a5bd9b416ebf0194be2e2d53d998a188"
+  },
+  "limitations": [
+    "Targeted states and typed bindings are not exhaustive reachability analysis.",
+    "Plan length is not an optimality claim; timing is a single local run.",
+    "Well-formed initial ownership and room-location facts are assumed."
+  ]
+}

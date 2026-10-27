@@ -11,8 +11,8 @@ The implementation extends Chengtian Gong's handoff commit
 are unchanged. Their ownership, movement, data-memory, sample-carrying, and
 lander-storage rules also apply in the extended domain.
 
-Mission 3 retains Mission 2's initial rover/lander facts, nine directed roads,
-and six goals. Lander 1 and the deployed rover1 start at wp2. Lander 2 is at
+Mission 3 uses the same rover and lander starting states, nine directed roads,
+and six goals as Mission 2. Lander 1 and the deployed rover1 start at wp2. Lander 2 is at
 wp1, with rover2 initially aboard it.
 
 ## Added representation
@@ -50,14 +50,15 @@ The original parameters retain their order and meaning. Four actions append
 | `transmit-scan` | rover, receiving-lander, source-waypoint, current-waypoint, astronaut, room | Correct lander's control room |
 | `store-sample` | rover, receiving-lander, source-waypoint, current-waypoint, astronaut, room | Correct lander's docking bay |
 
-Each gated action checks astronaut ownership, room ownership, room type, and
-the astronaut's current presence. All original preconditions and effects remain.
-Transmission stays wireless; no rover/lander proximity condition is added.
+Each affected action checks that the astronaut and room belong to the receiving
+lander. It also checks the room type and the astronaut's current location. All
+original preconditions and effects remain. Transmission stays wireless, so the
+rover does not have to be near the lander.
 
 The new action `move-astronaut(astronaut, lander, from-room, to-room)` requires
-the astronaut to be in the source room and both connected rooms to belong to
+the astronaut to be in the source room. The connected rooms must both belong to
 the assigned lander. Rover movement, imaging, scanning, and sample collection
-do not acquire unrelated astronaut requirements.
+do not require an astronaut.
 
 Only `:strips` and `:typing` are used. No additional requirements, derived
 predicates, negative preconditions, or hard-coded mission identifiers are needed.
@@ -78,14 +79,14 @@ For a single planner run:
 .venv/bin/pyperplan -s gbf -H hff PDDL/PartC/domain-ext.pddl PDDL/PartC/mission3.pddl
 ```
 
-The full validator checks Mission 3's setup against Mission 2, verifies the
-base-file hashes, and compares typed action instances with an independent
-rule model. It also plans and independently replays all three missions.
+The validator checks that Mission 3 keeps Mission 2's setup and verifies the
+base-file hashes. It then compares typed action instances with an independent
+rule model. Finally, it plans and independently replays all three missions.
 
-Its synthetic states use different identifiers and co-located landers. Checks
-cover the wrong astronaut, wrong room type, cross-lander movement, removal of
-old locations, and the inherited memory and sample restrictions. These are
-targeted tests rather than an exhaustive proof over all reachable states.
+The test states use different identifiers and include landers at the same
+waypoint. Checks cover the wrong astronaut, wrong room type, cross-lander
+movement, removal of old locations, and the inherited memory and sample rules.
+These tests do not cover every reachable state.
 
 Output is written to `evidence/part2c`, with plans, planner logs, per-step state
 traces, source hashes, environment details, and a machine-readable summary.
