@@ -17,6 +17,7 @@ no Sudoku, CSP or constraint-solver library is used.
 | `solver.py` | the solver: parsing, validation, MRV backtracking, a CLI, and a completion counter |
 | `test_solver.py` | 17 correctness tests with an independent set-based oracle |
 | `benchmark.py` | repeatable timing and counter measurements, raw JSON output |
+| `gui.py` | Tkinter GUI: 9x9 board with Load / Solve / Reset / Clear (standard library only) |
 | `puzzles/` | five practice puzzles, all constructed locally; see [puzzles/README.md](puzzles/README.md) |
 | `results/` | raw benchmark records and the summary; see [results/README.md](results/README.md) |
 | `tools/make_puzzles.py` | regenerates every puzzle and verifies uniqueness |
@@ -45,6 +46,9 @@ python3 solver.py puzzles/p2.txt --stats
 
 # comparison mode: fixed row-major cell ordering instead of MRV
 python3 solver.py puzzles/p2.txt --order row-major --stats
+
+# open the visual interface (Load / Solve / Reset / Clear)
+python3 gui.py
 
 # CSV input: convert a TXT puzzle first, then read it back with --csv
 tr ' ' ',' < puzzles/p1.txt > /tmp/p1.csv
@@ -82,5 +86,6 @@ digit is a dead end; exhausting the tree means the puzzle has no solution.
 - [x] Raw experiment data: `results/benchmark.json`, `results/benchmark_rowmajor.json`
 - [x] English Part 1B text: `report/part1b_report.md` (algorithm, implementation, testing, experiments, strengths and limitations, alternatives, A* analysis)
 - [x] Video material: `video_notes.md`
+- [x] GUI extension (optional, for extra marks): `gui.py`
 - [ ] Coordinate the page count with Part 1A (1A + 1B together: 4 pages maximum)
 - [ ] Final polish of the report text before submission
