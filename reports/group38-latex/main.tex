@@ -135,10 +135,17 @@ A state is a consistent partial board; an action assigns one legal digit to one 
 
 \clearpage
 \subsection{Worked output and interpretation}\label{part1-end}
-Figure~\ref{fig:gui} shows the actual interactive p2 run. Its 25 givens remain black and the 56 completed cells are blue. The displayed 593 placements include 537 undone attempts: $593-537=56$ retained assignments. The 594 nodes count the root plus those 593 attempted child states. These counters agree with the saved MRV run; interactive elapsed time is a separate observation.
+Figure~\ref{fig:gui} places an unsatisfiable input beside the actual interactive p2 result. The left grid has no repeated digits, but its upper-left blank has no legal candidate, so the solver reports failure at the root. In the right image, the 25 givens remain black and the 56 completed cells are blue. The displayed 593 placements include 537 undone attempts: $593-537=56$ retained assignments. The 594 nodes count the root plus those 593 attempted child states. These counters agree with the saved MRV run; interactive elapsed time is a separate observation.
 \begin{figure}[H]\centering
-\includegraphics[width=.80\linewidth]{figures/sudoku-gui-p2.png}
-\caption{Actual p2 completion in the graphical interface. The displayed 47.2 ms belongs to this interactive run; the experimental comparison uses the five-run medians in Table~1.}\label{fig:gui}
+\begin{minipage}[t]{.485\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/sudoku-gui-no-solution.png}\\[-2pt]
+{\small (a) Unsatisfiable input: 1 node}
+\end{minipage}\hfill
+\begin{minipage}[t]{.485\linewidth}\centering
+\includegraphics[width=\linewidth]{figures/sudoku-gui-p2.png}\\[-2pt]
+{\small (b) p2 solved: 594 nodes}
+\end{minipage}
+\caption{Two actual outcomes in the Sudoku GUI. The left status reports “No solution (1 nodes)”; 47.2 ms in the right image belongs to that interactive run, while the experiment uses the five-run medians in Table~1.}\label{fig:gui}
 \end{figure}
 \subsubsection{Strengths, limitations and alternatives}
 The method is complete, deterministic and easy to inspect; simple undo avoids domain-restoration errors. However, locally legal assignments may fail much later, and MRV selection scans can cost more than they save. Forward checking would maintain peer domains after assignments instead of recomputing them during selection; it may detect failure before another recursive call. AC-3 can remove unsupported values more widely, at added propagation cost \cite{filtering}. None of these alternatives was measured, so their performance here remains untested. Larger and externally sourced test sets, especially nontrivial unsatisfiable cases, would strengthen the evaluation; the five current inputs do not establish general performance.
